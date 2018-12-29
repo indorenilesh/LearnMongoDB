@@ -1,0 +1,26 @@
+Mongodb->Database-->Collection--->Document
+MySQL->Database-->Table--->Record(RowNColumn)
+
+#Insert many records with unordered style
+db.emp.insertMany([{"_id":9,"fname":"Kush","lname":"Raghani"},{"_id":10,"fname":John,"lname":"Thomas"},{"_id":11,"fname":"Anmol","lname":"Patil"}])
+
+#Insert many records with unordered style
+db.emp.insertMany([{"_id":9,"fname":"Kush","lname":"Raghani"},{"_id":10,"fname":John,"lname":"Thomas"},{"_id":11,"fname":"Anmol","lname":"Patil"}],{ ordered:false})
+
+#simple for loop to insert many records
+for ( i=12; i<=50; i++ ) { db.emp.insert({"_id":i,"fname":"test_"+i,"lname":"test_"+i}) }
+
+#Delete one line
+db.emp.deleteOne({"_id":10})
+db.emp.deleteOne({"fname":"Anmol"})		----> it will delete very first match
+
+#Delete many
+db.emp.deleteMany({"_id":{ $gt : 30 }})
+db.emp.deleteMany({"fname":"Anmol"}) 	----> it will delete all match
+db.emp.deleteMany({})		-----> it will delete all documents from that collection
+
+#Drop collection
+db.emp.drop()
+
+#Drop Database
+db.dropDatabase()
