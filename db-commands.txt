@@ -1,6 +1,8 @@
 Mongodb->Database-->Collection--->Document
 MySQL->Database-->Table--->Record(RowNColumn)
 
+CRUD Operations
+===============
 #Insert many records with unordered style
 db.emp.insertMany([{"_id":9,"fname":"Kush","lname":"Raghani"},{"_id":10,"fname":John,"lname":"Thomas"},{"_id":11,"fname":"Anmol","lname":"Patil"}])
 
@@ -24,3 +26,23 @@ db.emp.drop()
 
 #Drop Database
 db.dropDatabase()
+
+Indexing
+=========
+#Priority for Indexing
+Single Field Index
+Compound Field Index (max 33 (0-32))
+Text Index
+Multikey Index  (index on array)
+Hashed Index    (generally used in sharding)
+Partial Index
+
+
+queryparser - before doing anything checking query syntax and will confirm everything is fine and will try to find what about query is
+
+explain(), expain("executionstats"), explain("allPlansExecution")
+queryplanner
+winningplan
+rejectedplan
+executionstats (should read from bottom to top)
+allPlansExecution
