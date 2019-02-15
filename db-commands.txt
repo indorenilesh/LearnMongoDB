@@ -46,3 +46,50 @@ winningplan
 rejectedplan
 executionstats (should read from bottom to top)
 allPlansExecution
+
+
+#Replication
+--------------
+Adventages
+1) Provide Failover
+2) Security
+3)
+
+Disadvantages
+--------------
+1) NO scalable at WRITE
+2) Primary get overloaded, if secondary goes offline
+
+How replication work
+---------------------
+client app --> Primary DB <--- Secondary DB
+
+Client app will write data on oplog of primary db, and then secondary db will read from oplog of primary db.
+
+Oplog -> operation log is capped collection
+
+Note - In oplog replication, it do statement based replication.
+
+Replication type
+------------------
+1) From Primary replication (all secondary will read from primary)
+2) Chain replication (second secondary will read from first secondary, and first secondary will read from primary db)
+
+States of replication
+----------------------
+startup state (initial sync run)
+secondary node state
+
+Below point IMP in case of election
+-----------------------------------
+vote
+    1 enable
+    0 disable
+priority
+    more number, more priority
+
+If priority not given then, votting will happen, and Primary DB get selected.
+
+IMP NOTE - In 2 SLAVE server, election will not happen. At lease 3 nodes should be there for election.
+
+Max 50 (49+1) member can be in replication set. All 50 members can not vote. Only 12 member can vote.
