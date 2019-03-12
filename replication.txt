@@ -1,0 +1,24 @@
+We have 5 mongo instance running on same server
+1270.0.1:27001
+1270.0.1:27002
+1270.0.1:27003
+1270.0.1:27004
+1270.0.1:27005
+
+mongod.conf  (configure it in all 5 mongo instance)
+------------
+replication:
+  oplogSizeMB: 200
+  replSetName: MReplica
+
+execute this on first server (127.0.0.1:27001)
+------------------------------------------------
+mongo --port 27001
+
+rs.initiate()     ---> HOST will be primary from which initilization done.
+rs.add('127.0.0.1:27002')
+rs.add('127.0.0.1:27003')
+rs.add('127.0.0.1:27004')
+rs.add('127.0.0.1:27005')
+
+Note : In slave node, you need to execute rs.slaveOk() and only after that you will able to see database.

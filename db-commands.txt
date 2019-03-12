@@ -66,7 +66,7 @@ client app --> Primary DB <--- Secondary DB
 
 Client app will write data on oplog of primary db, and then secondary db will read from oplog of primary db.
 
-Oplog -> operation log is capped collection
+Oplog -> operation log is capped collection. default size 5% of available disk space at the time of mongo configuration.
 
 Note - In oplog replication, it do statement based replication.
 
@@ -77,8 +77,14 @@ Replication type
 
 States of replication
 ----------------------
+primary
+secondary
+arbitory
+delay
+hidden
+recovery (stale state) - If node is down for more time than oplog get rotated for primary node and this node going to miss that data.
 startup state (initial sync run)
-secondary node state
+
 
 Below point IMP in case of election
 -----------------------------------
@@ -93,3 +99,314 @@ If priority not given then, votting will happen, and Primary DB get selected.
 IMP NOTE - In 2 SLAVE server, election will not happen. At lease 3 nodes should be there for election.
 
 Max 50 (49+1) member can be in replication set. All 50 members can not vote. Only 12 member can vote.
+
+[‎3/‎1/‎2019 8:50 PM]  Suniil R Sutar:
+IM Administrator: This Instant Messaging session is being recorded.
+
+==================
+IM Administrator: This Instant Messaging session is being recorded.
+
+=================
+IM Administrator: This Instant Messaging session is being recorded.
+
+mongod --dbpath /home/mongodb/data1 --logpath /home/mongodb/data1/mongodb1.log --fork --bind_ip 0.0.0.0 --port 37017
+mongod --dbpath /home/mongodb/data2 --logpath /home/mongodb/data1/mongodb2.log --fork --bind_ip 0.0.0.0 --port 37018
+mongod --dbpath /home/mongodb/data3 --logpath /home/mongodb/data1/mongodb3.log --fork --bind_ip 0.0.0.0 --port 37019
+
+mkdir /home/mongodb/data1
+mkdir /home/mongodb/data2
+mkdir /home/mongodb/data3
+
+mongod --replSet test --dbpath /home/mongodb/data1 --logpath /home/mongodb/data1/mongodb1.log --fork --bind_ip 0.0.0.0 --port 37017
+mongod --replSet test --dbpath /home/mongodb/data2 --logpath /home/mongodb/data1/mongodb2.log --fork --bind_ip 0.0.0.0 --port 37018
+mongod --replSet test --dbpath /home/mongodb/data3 --logpath /home/mongodb/data1/mongodb3.log --fork --bind_ip 0.0.0.0 --port 37019
+
+rs.initiate()
+rs.add("nosql1.datavail.com:37018")
+rs.add("nosql1.datavail.com:37019")
+
+config = {_id: 'test', members: [
+									{_id: 0, host: 'nosql1.datavail.com:37017'},
+									{_id: 1, host: 'nosql1.datavail.com:37018'},
+									{_id: 2, host: 'nosql1.datavail.com:37019'}
+									] }
+rs.initiate(config)
+
+rs.initiate( {
+				_id : "test",
+				members: [ { _id : 0, host : "nosql1.datavail.com:37017" } ]
+			})
+
+
+rs.status()
+
+MongoDB Enterprise test:PRIMARY> rs.printSlaveReplicationInfo()
+source: nosql1.datavail.com:37018
+        syncedTo: Fri Mar 01 2019 20:34:18 GMT+0530 (IST)
+        0 secs (0 hrs) behind the primary
+source: nosql1.datavail.com:37019
+        syncedTo: Fri Mar 01 2019 20:34:18 GMT+0530 (IST)
+        0 secs (0 hrs) behind the primary
+MongoDB Enterprise test:PRIMARY>
+MongoDB Enterprise test:PRIMARY>
+MongoDB Enterprise test:PRIMARY> rs.printReplicationInfo()
+configured oplog size:   5322.964257240295MB
+log length start to end: 971secs (0.27hrs)
+oplog first event time:  Fri Mar 01 2019 20:18:47 GMT+0530 (IST)
+oplog last event time:   Fri Mar 01 2019 20:34:58 GMT+0530 (IST)
+now:                     Fri Mar 01 2019 20:35:04 GMT+0530 (IST)
+MongoDB Enterprise test:PRIMARY>
+
+MongoDB Enterprise test:PRIMARY> cfg=rs.conf()
+{
+        "_id" : "test",
+        "version" : 3,
+        "protocolVersion" : NumberLong(1),
+        "members" : [
+                {
+                        "_id" : 0,
+                        "host" : "nosql1.datavail.com:37017",
+                        "arbiterOnly" : false,
+                        "buildIndexes" : true,
+                        "hidden" : false,
+                        "priority" : 1,
+                        "tags" : {
+
+                        },
+                        "slaveDelay" : NumberLong(0),
+                        "votes" : 1
+                },
+                {
+                        "_id" : 1,
+                        "host" : "nosql1.datavail.com:37018",
+                        "arbiterOnly" : false,
+                        "buildIndexes" : true,
+                        "hidden" : false,
+                        "priority" : 1,
+                        "tags" : {
+
+                        },
+                        "slaveDelay" : NumberLong(0),
+                        "votes" : 1
+                },
+                {
+                        "_id" : 2,
+                        "host" : "nosql1.datavail.com:37019",
+                        "arbiterOnly" : false,
+                        "buildIndexes" : true,
+                        "hidden" : false,
+                        "priority" : 1,
+                        "tags" : {
+
+                        },
+                        "slaveDelay" : NumberLong(0),
+                        "votes" : 1
+                }
+        ],
+        "settings" : {
+                "chainingAllowed" : true,
+                "heartbeatIntervalMillis" : 2000,
+                "heartbeatTimeoutSecs" : 10,
+                "electionTimeoutMillis" : 10000,
+                "catchUpTimeoutMillis" : -1,
+                "catchUpTakeoverDelayMillis" : 30000,
+                "getLastErrorModes" : {
+
+                },
+                "getLastErrorDefaults" : {
+                        "w" : 1,
+                        "wtimeout" : 0
+                },
+                "replicaSetId" : ObjectId("5c79464fa97cf6049cbb69b2")
+        }
+}
+MongoDB Enterprise test:PRIMARY>
+MongoDB Enterprise test:PRIMARY>
+MongoDB Enterprise test:PRIMARY>
+MongoDB Enterprise test:PRIMARY> cfg.members[0].priority
+1
+MongoDB Enterprise test:PRIMARY> cfg.members[0
+... ]
+{
+        "_id" : 0,
+        "host" : "nosql1.datavail.com:37017",
+        "arbiterOnly" : false,
+        "buildIndexes" : true,
+        "hidden" : false,
+        "priority" : 1,
+        "tags" : {
+
+        },
+        "slaveDelay" : NumberLong(0),
+        "votes" : 1
+}
+MongoDB Enterprise test:PRIMARY>
+MongoDB Enterprise test:PRIMARY>
+MongoDB Enterprise test:PRIMARY> cfg.members[0].priority=2
+2
+MongoDB Enterprise test:PRIMARY> cfg.members[0]
+{
+        "_id" : 0,
+        "host" : "nosql1.datavail.com:37017",
+        "arbiterOnly" : false,
+        "buildIndexes" : true,
+        "hidden" : false,
+        "priority" : 2,
+        "tags" : {
+
+        },
+        "slaveDelay" : NumberLong(0),
+        "votes" : 1
+}
+MongoDB Enterprise test:PRIMARY>
+MongoDB Enterprise test:PRIMARY>
+MongoDB Enterprise test:PRIMARY>
+MongoDB Enterprise test:PRIMARY> rs.conf()
+{
+        "_id" : "test",
+        "version" : 3,
+        "protocolVersion" : NumberLong(1),
+        "members" : [
+                {
+                        "_id" : 0,
+                        "host" : "nosql1.datavail.com:37017",
+                        "arbiterOnly" : false,
+                        "buildIndexes" : true,
+                        "hidden" : false,
+                        "priority" : 1,
+                        "tags" : {
+
+                        },
+                        "slaveDelay" : NumberLong(0),
+                        "votes" : 1
+                },
+                {
+                        "_id" : 1,
+                        "host" : "nosql1.datavail.com:37018",
+                        "arbiterOnly" : false,
+                        "buildIndexes" : true,
+                        "hidden" : false,
+                        "priority" : 1,
+                        "tags" : {
+
+                        },
+                        "slaveDelay" : NumberLong(0),
+                        "votes" : 1
+                },
+                {
+                        "_id" : 2,
+                        "host" : "nosql1.datavail.com:37019",
+                        "arbiterOnly" : false,
+                        "buildIndexes" : true,
+                        "hidden" : false,
+                        "priority" : 1,
+                        "tags" : {
+
+                        },
+                        "slaveDelay" : NumberLong(0),
+                        "votes" : 1
+                }
+        ],
+        "settings" : {
+                "chainingAllowed" : true,
+                "heartbeatIntervalMillis" : 2000,
+                "heartbeatTimeoutSecs" : 10,
+                "electionTimeoutMillis" : 10000,
+                "catchUpTimeoutMillis" : -1,
+                "catchUpTakeoverDelayMillis" : 30000,
+                "getLastErrorModes" : {
+
+                },
+                "getLastErrorDefaults" : {
+                        "w" : 1,
+                        "wtimeout" : 0
+                },
+                "replicaSetId" : ObjectId("5c79464fa97cf6049cbb69b2")
+        }
+}
+MongoDB Enterprise test:PRIMARY>
+MongoDB Enterprise test:PRIMARY>
+MongoDB Enterprise test:PRIMARY> reconf(cfg)
+2019-03-01T20:44:59.362+0530 E QUERY    [thread1] ReferenceError: reconf is not defined :
+@(shell):1:1
+MongoDB Enterprise test:PRIMARY>
+MongoDB Enterprise test:PRIMARY> rs.reconf(cfg)
+2019-03-01T20:45:17.440+0530 E QUERY    [thread1] TypeError: rs.reconf is not a function :
+@(shell):1:1
+MongoDB Enterprise test:PRIMARY> rs.reconfig(cfg)
+{
+        "ok" : 1,
+        "operationTime" : Timestamp(1551453327, 1),
+        "$clusterTime" : {
+                "clusterTime" : Timestamp(1551453327, 1),
+                "signature" : {
+                        "hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+                        "keyId" : NumberLong(0)
+                }
+        }
+}
+MongoDB Enterprise test:PRIMARY>
+MongoDB Enterprise test:PRIMARY>
+MongoDB Enterprise test:PRIMARY> rs.conf()
+{
+        "_id" : "test",
+        "version" : 4,
+        "protocolVersion" : NumberLong(1),
+        "members" : [
+                {
+                        "_id" : 0,
+                        "host" : "nosql1.datavail.com:37017",
+                        "arbiterOnly" : false,
+                        "buildIndexes" : true,
+                        "hidden" : false,
+                        "priority" : 2,
+                        "tags" : {
+
+                        },
+                        "slaveDelay" : NumberLong(0),
+                        "votes" : 1
+                },
+                {
+                        "_id" : 1,
+                        "host" : "nosql1.datavail.com:37018",
+                        "arbiterOnly" : false,
+                        "buildIndexes" : true,
+                        "hidden" : false,
+                        "priority" : 1,
+                        "tags" : {
+
+                        },
+                        "slaveDelay" : NumberLong(0),
+                        "votes" : 1
+                },
+                {
+                        "_id" : 2,
+                        "host" : "nosql1.datavail.com:37019",
+                        "arbiterOnly" : false,
+                        "buildIndexes" : true,
+                        "hidden" : false,
+                        "priority" : 1,
+                        "tags" : {
+
+                        },
+                        "slaveDelay" : NumberLong(0),
+                        "votes" : 1
+                }
+        ],
+        "settings" : {
+                "chainingAllowed" : true,
+                "heartbeatIntervalMillis" : 2000,
+                "heartbeatTimeoutSecs" : 10,
+                "electionTimeoutMillis" : 10000,
+                "catchUpTimeoutMillis" : -1,
+                "catchUpTakeoverDelayMillis" : 30000,
+                "getLastErrorModes" : {
+
+                },
+                "getLastErrorDefaults" : {
+                        "w" : 1,
+                        "wtimeout" : 0
+                },
+                "replicaSetId" : ObjectId("5c79464fa97cf6049cbb69b2")
+        }
+}

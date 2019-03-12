@@ -1,0 +1,42 @@
+Shard
+======
+Sharding means distribute your data.
+
+sharding enabled on collection level.
+
+        mongos router   mongo-config
+shard1              shard2          shard3
+
+Mongos - will face to application/client. any hardware will work.
+Config server - have metadata/config of all sharding/cluster. Middium type hardware require
+Shard server -
+
+
+1) Request come to mongos router
+2) mongo router will query mongo-config where to send data
+3) data will go to default shard defined in config
+4) then balanced in config will move data from default shard to other shard as per shard key.
+
+working set
+------------
+how many data get use frequently....
+configure memory for mongo so that all those frequently used data should get cached....
+
+when to shard
+---------------
+when data is more than your hard disk
+if your application is heavy in write and experienc latency
+working set outgrow
+
+shard key
+---------
+once shard key defined, it can not be revert back. shard key defined at collection level and it is immutable. generally developer decide what will be shard key as he know which data will get frequent query.
+
+shard key should be cardinally/unique.
+used in majority in read query.
+
+chunks
+------
+data get distributed in the form of chunks. chunks size we can define. chunk size defined at global leve but it can be changed any time.
+So when it get defined, you have 4 collection which has enabled sharding. But chunk size will be same for them.
+
