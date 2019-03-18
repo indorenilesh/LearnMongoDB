@@ -15,7 +15,10 @@ Shard server -
 1) Request come to mongos router
 2) mongo router will query mongo-config where to send data
 3) data will go to default shard defined in config
-4) then balanced in config will move data from default shard to other shard as per shard key.
+4) then balancer in config will move data from default shard to other shard as per shard key.
+
+Balancer is a machanism to distribute data.
+Balancer window - facility to start balancer in perticular time.
 
 working set
 ------------
@@ -40,3 +43,163 @@ chunks
 data get distributed in the form of chunks. chunks size we can define. chunk size defined at global leve but it can be changed any time.
 So when it get defined, you have 4 collection which has enabled sharding. But chunk size will be same for them.
 
+Sharding with replication setup.
+---------------------------------
+1) Create require directories
+mkdir -p /local/apps/shardnrepl/shard1/data1
+mkdir -p /local/apps/shardnrepl/shard1/data2
+mkdir -p /local/apps/shardnrepl/shard1/data3
+
+mkdir -p /local/apps/shardnrepl/shard2/data1
+mkdir -p /local/apps/shardnrepl/shard2/data2
+mkdir -p /local/apps/shardnrepl/shard2/data3
+
+mkdir -p /local/apps/shardnrepl/config/data1
+mkdir -p /local/apps/shardnrepl/config/data2
+mkdir -p /local/apps/shardnrepl/config/data3
+
+mkdir -p /local/apps/shardnrepl/mongos
+
+2) Start servers with replication name
+mongod --replSet shard1 --dbpath /local/apps/shardnrepl/shard1/data1 --logpath /local/apps/shardnrepl/shard1/data1/mongodb1.log --fork --bind_ip 0.0.0.0 --port 27011
+mongod --replSet shard1 --dbpath /local/apps/shardnrepl/shard1/data2 --logpath /local/apps/shardnrepl/shard1/data2/mongodb2.log --fork --bind_ip 0.0.0.0 --port 27012
+mongod --replSet shard1 --dbpath /local/apps/shardnrepl/shard1/data3 --logpath /local/apps/shardnrepl/shard1/data3/mongodb3.log --fork --bind_ip 0.0.0.0 --port 27013
+
+3) Initiate replication and add other servers for 1st shard servers.
+#do it on 27011
+mongo --port 27011
+
+rs.initiate()
+rs.add("vm-1.aipl.com:27012")
+rs.add("vm-1.aipl.com:27013")
+rs.status()
+
+OR
+
+config = {_id: 'test', members: [
+{_id: 0, host: 'vm-1.aipl.com:27011'},
+{_id: 1, host: 'vm-1.aipl.com:27012'},
+{_id: 2, host: 'vm-1.aipl.com:27013'}
+] }
+rs.initiate(config)
+
+4) Start servers with replication name
+mongod --replSet shard2 --dbpath /local/apps/shardnrepl/shard2/data1 --logpath /local/apps/shardnrepl/shard2/data1/mongodb1.log --fork --bind_ip 0.0.0.0 --port 27021
+mongod --replSet shard2 --dbpath /local/apps/shardnrepl/shard2/data2 --logpath /local/apps/shardnrepl/shard2/data2/mongodb2.log --fork --bind_ip 0.0.0.0 --port 27022
+mongod --replSet shard2 --dbpath /local/apps/shardnrepl/shard2/data3 --logpath /local/apps/shardnrepl/shard2/data3/mongodb3.log --fork --bind_ip 0.0.0.0 --port 27023
+
+5) Initiate replication and add other servers for 2nd shard servers.
+#do it on 27021
+mongo --port 27021
+
+rs.initiate()
+rs.add("vm-1.aipl.com:27022")
+rs.add("vm-1.aipl.com:27023")
+rs.status()
+
+OR
+
+config = {_id: 'test', members: [
+{_id: 0, host: 'vm-1.aipl.com:27021'},
+{_id: 1, host: 'vm-1.aipl.com:27022'},
+{_id: 2, host: 'vm-1.aipl.com:27023'}
+] }
+rs.initiate(config)
+
+4)Stop servers, and start again with shard option.
+
+kill -9 `ps aux |grep mongo |awk '{print $2}'`	---> will stop all mongo process.
+
+mongod --replSet shard1 --shardsvr --dbpath /local/apps/shardnrepl/shard1/data1 --logpath /local/apps/shardnrepl/shard1/data1/mongodb1.log --fork --bind_ip 0.0.0.0 --port 27011
+mongod --replSet shard1 --shardsvr --dbpath /local/apps/shardnrepl/shard1/data2 --logpath /local/apps/shardnrepl/shard1/data2/mongodb2.log --fork --bind_ip 0.0.0.0 --port 27012
+mongod --replSet shard1 --shardsvr --dbpath /local/apps/shardnrepl/shard1/data3 --logpath /local/apps/shardnrepl/shard1/data3/mongodb3.log --fork --bind_ip 0.0.0.0 --port 27013
+
+mongod --replSet shard2 --shardsvr --dbpath /local/apps/shardnrepl/shard2/data1 --logpath /local/apps/shardnrepl/shard2/data1/mongodb1.log --fork --bind_ip 0.0.0.0 --port 27021
+mongod --replSet shard2 --shardsvr --dbpath /local/apps/shardnrepl/shard2/data2 --logpath /local/apps/shardnrepl/shard2/data2/mongodb2.log --fork --bind_ip 0.0.0.0 --port 27022
+mongod --replSet shard2 --shardsvr --dbpath /local/apps/shardnrepl/shard2/data3 --logpath /local/apps/shardnrepl/shard2/data3/mongodb3.log --fork --bind_ip 0.0.0.0 --port 27023
+
+5) Start config server with replication.
+mongod --replSet config --configsvr --dbpath /local/apps/shardnrepl/config/data1 --logpath /local/apps/shardnrepl/config/data1/mongodb1.log --fork --bind_ip 0.0.0.0 --port 37031
+mongod --replSet config --configsvr --dbpath /local/apps/shardnrepl/config/data2 --logpath /local/apps/shardnrepl/config/data2/mongodb2.log --fork --bind_ip 0.0.0.0 --port 37032
+mongod --replSet config --configsvr --dbpath /local/apps/shardnrepl/config/data3 --logpath /local/apps/shardnrepl/config/data3/mongodb3.log --fork --bind_ip 0.0.0.0 --port 37033
+
+6) Initiate replication for config server
+mongo --port 37031
+rs.initiate({_id: "config",configsvr: true,members: [{ _id : 0, host : "vm-1.aipl.com:37031" },{ _id : 1, host : "vm-1.aipl.com:37032" },{ _id : 2, host : "vm-1.aipl.com:37033" }]})
+
+7) Start mongo router.
+mongos --configdb config/vm-1.aipl.com:37031,vm-1.aipl.com:37032,vm-1.aipl.com:37033 --logpath /local/apps/shardnrepl/mongos/mongos.log --fork --bind_ip 0.0.0.0 --port 47000
+
+8) add servers in shards and check status, this should be done on mongos server.
+mongo --port 47000
+sh.addShard("shard1/vm-1.aipl.com:27011")
+sh.addShard("shard2/vm-1.aipl.com:27021")
+
+sh.status()
+--- Sharding Status ---
+sharding version: {
+"_id" : 1,
+"minCompatibleVersion" : 5,
+"currentVersion" : 6,
+"clusterId" : ObjectId("5c87ce6e883438971fdcead5")
+}
+shards:
+{ "_id" : "shard1", "host" : "shard1/vm-1.aipl.com:27011,vm-1.aipl.com:27023,vm-1.aipl.com:27033", "state" : 1 }
+{ "_id" : "shard2", "host" : "shard2/vm-1.aipl.com:270215,vm-1.aipl.com:270215,vm-1.aipl.com:27023", "state" : 1 }
+active mongoses:
+"3.6.8" : 1
+autosplit:
+Currently enabled: yes
+balancer:
+Currently enabled: yes
+Currently running: no
+Failed balancer rounds in last 5 attempts: 0
+Migration Results for the last 24 hours:
+No recent migrations
+databases:
+{ "_id" : "config", "primary" : "config", "partitioned" : true }
+
+
+=============================================
+
+In sh.status(), in front of db, "partitioned" : false, means sharding is not enabled for that db/collection.
+i.e.
+  databases:
+        {  "_id" : "AIPL",  "primary" : "shard2",  "partitioned" : false,  "version" : {  "uuid" : UUID("31d2c3f0-c41e-4bea-9451-19f1f5a66c43"),  "lastMod" : 1 } }
+
+after enabling
+  databases:
+        {  "_id" : "AIPL",  "primary" : "shard2",  "partitioned" : true,  "version" : {  "uuid" : UUID("31d2c3f0-c41e-4bea-9451-19f1f5a66c43"),  "lastMod" : 1 } }
+                AIPL.employee
+                        shard key: { "LName" : 1 }
+                        unique: false
+                        balancing: true
+                        chunks:
+                                shard2  1
+                        { "LName" : { "$minKey" : 1 } } -->> { "LName" : { "$maxKey" : 1 } } on : shard2 Timestamp(1, 0)
+        {  "_id" : "config",  "primary" : "config",  "partitioned" : true }
+
+
+use AIPL
+db.employee.insert({"_id":1,"FNmame:"Nilesh","LName":"Indore"})
+
+sh.enableSharding("AIPL")
+
+mongos> sh.enableSharding("AIPL")
+{
+        "ok" : 1,
+        "operationTime" : Timestamp(1552741889, 3),
+        "$clusterTime" : {
+                "clusterTime" : Timestamp(1552741889, 3),
+                "signature" : {
+                        "hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+                        "keyId" : NumberLong(0)
+                }
+        }
+}
+
+
+db.employee.ensureIndex({"LName":1})
+sh.shardCollection("AIPL.employee",{"LName":1})
+
+Note : Index should be enable on the field, on which we are going to define shard key in the collection.

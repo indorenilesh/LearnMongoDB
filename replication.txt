@@ -22,3 +22,11 @@ rs.add('127.0.0.1:27004')
 rs.add('127.0.0.1:27005')
 
 Note : In slave node, you need to execute rs.slaveOk() and only after that you will able to see database.
+Note : in replication set, server hostname should be FQDN.
+Note : default port
+        mongos - 27017
+        shard - 27018
+        config - 27019
+
+rs.stepDown() - will make primary to secondary, and will make another secondary as primary.
+rs.remove("ip:port") - will remove from replication.
