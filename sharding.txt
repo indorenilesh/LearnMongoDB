@@ -203,3 +203,61 @@ db.employee.ensureIndex({"LName":1})
 sh.shardCollection("AIPL.employee",{"LName":1})
 
 Note : Index should be enable on the field, on which we are going to define shard key in the collection.
+
+#############################################################################################################################3
+### How to shutdown whole setup ###
+You need to shutdown from TOP to BOTTOM(BASE). mongos server--->config servers--->shard servers
+mongo --port 47000 admin -eval "db.shutdownServer()"    --->mongos server
+mongo --port 37033 admin -eval "db.shutdownServer()"    --->SECONDARY config server
+mongo --port 37032 admin -eval "db.shutdownServer()"    --->SECONDARY config server
+mongo --port 37031 admin -eval "db.shutdownServer()"    --->PRIMARY config server
+mongo --port 27023 admin -eval "db.shutdownServer()"    --->SECONDARY shard server.
+mongo --port 27022 admin -eval "db.shutdownServer()"    --->SECONDARY shard server.
+mongo --port 27021 admin -eval "db.shutdownServer()"    --->PRIMARY shard server.
+mongo --port 27013 admin -eval "db.shutdownServer()"    --->SECONDARY shard server.
+mongo --port 27012 admin -eval "db.shutdownServer()"    --->SECONDARY shard server.
+mongo --port 27011 admin -eval "db.shutdownServer()"    --->PRIMARY shard server.
+
+Note : First shutdown secondary server, then only shutdown primary server.
+
+### How to start whole setup ###
+You need to start from BASE...shard servers--->config servers--->mongos servers
+
+1) Start SHARD servers with replication name only, do not start it with --shardsvr option.
+mongod --replSet shard1 --dbpath /local/apps/shardnrepl/shard1/data1 --logpath /local/apps/shardnrepl/shard1/data1/mongodb1.log --fork --bind_ip 0.0.0.0 --port 27011
+mongod --replSet shard1 --dbpath /local/apps/shardnrepl/shard1/data2 --logpath /local/apps/shardnrepl/shard1/data2/mongodb2.log --fork --bind_ip 0.0.0.0 --port 27012
+mongod --replSet shard1 --dbpath /local/apps/shardnrepl/shard1/data3 --logpath /local/apps/shardnrepl/shard1/data3/mongodb3.log --fork --bind_ip 0.0.0.0 --port 27013
+mongod --replSet shard2 --dbpath /local/apps/shardnrepl/shard2/data1 --logpath /local/apps/shardnrepl/shard2/data1/mongodb1.log --fork --bind_ip 0.0.0.0 --port 27021
+mongod --replSet shard2 --dbpath /local/apps/shardnrepl/shard2/data2 --logpath /local/apps/shardnrepl/shard2/data2/mongodb2.log --fork --bind_ip 0.0.0.0 --port 27022
+mongod --replSet shard2 --dbpath /local/apps/shardnrepl/shard2/data3 --logpath /local/apps/shardnrepl/shard2/data3/mongodb3.log --fork --bind_ip 0.0.0.0 --port 27023
+
+2) No need to initiate replication, primary server will have replication configuration, we need to just add other servers in replication.
+mongo --port 27011
+rs.add("vm-1.aipl.com:27012")
+rs.add("vm-1.aipl.com:27013")
+rs.status()
+mongo --port 27021
+rs.add("vm-1.aipl.com:27022")
+rs.add("vm-1.aipl.com:27023")
+rs.status()
+
+3) Stop all shard servers, and then again start it with --shardsvr option
+
+kill -9 `ps aux |grep mongo |awk '{print $2}'`	---> will stop all mongo process.
+
+mongod --replSet shard1 --shardsvr --dbpath /local/apps/shardnrepl/shard1/data1 --logpath /local/apps/shardnrepl/shard1/data1/mongodb1.log --fork --bind_ip 0.0.0.0 --port 27011
+mongod --replSet shard1 --shardsvr --dbpath /local/apps/shardnrepl/shard1/data2 --logpath /local/apps/shardnrepl/shard1/data2/mongodb2.log --fork --bind_ip 0.0.0.0 --port 27012
+mongod --replSet shard1 --shardsvr --dbpath /local/apps/shardnrepl/shard1/data3 --logpath /local/apps/shardnrepl/shard1/data3/mongodb3.log --fork --bind_ip 0.0.0.0 --port 27013
+
+mongod --replSet shard2 --shardsvr --dbpath /local/apps/shardnrepl/shard2/data1 --logpath /local/apps/shardnrepl/shard2/data1/mongodb1.log --fork --bind_ip 0.0.0.0 --port 27021
+mongod --replSet shard2 --shardsvr --dbpath /local/apps/shardnrepl/shard2/data2 --logpath /local/apps/shardnrepl/shard2/data2/mongodb2.log --fork --bind_ip 0.0.0.0 --port 27022
+mongod --replSet shard2 --shardsvr --dbpath /local/apps/shardnrepl/shard2/data3 --logpath /local/apps/shardnrepl/shard2/data3/mongodb3.log --fork --bind_ip 0.0.0.0 --port 27023
+
+4) Start config server
+mongod --replSet config --configsvr --dbpath /local/apps/shardnrepl/config/data1 --logpath /local/apps/shardnrepl/config/data1/mongodb1.log --fork --bind_ip 0.0.0.0 --port 37031
+mongod --replSet config --configsvr --dbpath /local/apps/shardnrepl/config/data2 --logpath /local/apps/shardnrepl/config/data2/mongodb2.log --fork --bind_ip 0.0.0.0 --port 37032
+mongod --replSet config --configsvr --dbpath /local/apps/shardnrepl/config/data3 --logpath /local/apps/shardnrepl/config/data3/mongodb3.log --fork --bind_ip 0.0.0.0 --port 37033
+
+5) Start mongos server
+mongos --configdb config/vm-1.aipl.com:37031,vm-1.aipl.com:37032,vm-1.aipl.com:37033 --logpath /local/apps/shardnrepl/mongos/mongos.log --fork --bind_ip 0.0.0.0 --port 47000
+
