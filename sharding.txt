@@ -241,6 +241,12 @@ rs.add("vm-1.aipl.com:27022")
 rs.add("vm-1.aipl.com:27023")
 rs.status()
 
+OR
+mongo --port 27011 -eval "rs.add('vm-1:27012')"
+mongo --port 27011 -eval "rs.add('vm-1:27013')"
+mongo --port 27021 -eval "rs.add('vm-1:27022')"
+mongo --port 27021 -eval "rs.add('vm-1:27023')"
+
 3) Stop all shard servers, and then again start it with --shardsvr option
 
 kill -9 `ps aux |grep mongo |awk '{print $2}'`	---> will stop all mongo process.
