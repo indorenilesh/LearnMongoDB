@@ -8,3 +8,7 @@ You can not take backup of multiple collection from single backup at a time. But
 take backup of rest of the collection.
 
 oplog option - in replication case, while taking backup this option need to mention, otherwise it will take backup od data which written on disk, but data available in oplog that time, will not get backedup.
+while restoring again oplog option should be given if you have given oplog option while taking backup, otherwise it will not restore oplog backup.
+
+sharding with replication - while taking backup, stop loadbalancer and then take backup otherwise backup will not be good. it will inconsistant or will not have complete backup.
+
