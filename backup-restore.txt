@@ -1,3 +1,10 @@
 mongodump/mongorestore - goes into DB and take actual backup of DB and collections. Backup in bison format nad restor in bison format.
 mongoexport/mongoimport - it takes backup in json format.
 bisondump - to convert bison data to json format
+
+mongodump - start 4 cpu thread to take backup. it's high cpu's utilization process.
+
+You can not take backup of multiple collection from single backup at a time. But you have exclude option, so you can mention collection names from that DB, which backup not required, so it will
+take backup of rest of the collection.
+
+oplog option - in replication case, while taking backup this option need to mention, otherwise it will take backup od data which written on disk, but data available in oplog that time, will not get backedup.
