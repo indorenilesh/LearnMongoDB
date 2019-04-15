@@ -1,0 +1,6 @@
+1) get query output without going into mongo shell
+mongo 127.0.0.1:27010/stock --eval ' db.tick_data.count()'
+
+2) Import data from json file
+mongoimport --port 27010 --db stock --collection stock_detail --file data.json
+Note : in case of authentication you need to add --username and --password also.
