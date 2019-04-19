@@ -1,0 +1,43 @@
+You can look inside the document by find() function.
+i.e.
+db.tick_data.find()
+Note : If you have more document that can not show in single screen, then it will show only 20 records, and after that you want to see next 20 record you need to type "it" and then press "enter".
+
+To see document in systamatic way, you can use pretty() function.
+i.e.
+db.tick_data.find().pretty()
+
+To get data related to particular object.
+i.e.
+db.tick_data.find({"sname":"bata"})
+
+If there are object of given query and still want to filter out. It will work as AND operator
+i.e.
+db.tick_data.find({"sname":"bata","price":40})
+
+If you don't want particular field in output then you skip it like this. Here I am skipping _id field which has some weired numbers.
+i.e.
+db.tick_data.find({"sname":"bata","price":40},{"_id":0})
+
+Instead of output, if you want just to know how many number of records are there. You can use count() function.
+i.e.
+db.tick_data.find({"sname":"bata","price":40},{"_id":0}).count()
+
+If you want to print only some lines from the document you can use limit() function.
+i.e.
+db.tick_data.find({"sname":"bata","price":40},{"_id":0}).limit(5)
+
+We have skip() function, which will skip those number of lines and will show rest of the records.
+db.tick_data.find({"sname":"bata","price":40},{"_id":0}).skip(5)
+
+Note : In both function limit() and skip(), it work from top to bottom, means limit(5) will show top 5 lines and skip(5) with skip top 5 lines.
+
+You can sort data with sort() function.
+i.e.
+db.tick_data.find({"sname":"bata","price":40}).sort({"time":1})     -----> ascending
+db.tick_data.find({"sname":"bata","price":40}).sort({"time":-1})    -----> descending
+Note : 1 means ascending, -1 means descending.
+Note : You can give multiple filed for sorting.
+
+You can use distinct() function to get value of particular field only.
+db.tick_data.distinct("sname")

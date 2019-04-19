@@ -10,7 +10,7 @@ mycol = mydb["stock_detail"]
 def genTick(sid,sname,minprice,maxprice):
     price = random.randint(minprice, maxprice)
     tick_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    msg = {'time':tick_time,'sid':sid,'sname':minprice,'price':maxprice}
+    msg = {'time':tick_time,'sid':sid,'sname':sname,'price':price}
     return(msg)
 
 while True:

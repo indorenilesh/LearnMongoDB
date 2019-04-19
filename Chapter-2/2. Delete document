@@ -1,0 +1,24 @@
+Delete document
+---------------
+You can delete document by deleteOne or deleteMany function same as insertOne and insertMany.
+i.e.
+db.numbers.deleteOne({"a":5})
+db.numbers.deleteOne({"a":{$lt : 4}})
+    Note : in above command although it matched more than one record but it will delete only one record as you are using deleteOne function.
+
+i.e.
+db.numbers.deleteMany({"a":{$lt : 4}})
+db.numbers.deleteMany({})   ----> this will delete all the document from the collection.
+
+Delete collection
+-----------------
+We can use drop() function to delete collection.
+i.e.
+db.numbers.drop()
+
+Delete database
+----------------
+We can use dropDatabase() function to delete database.
+i.e.
+db.dropDatabase()
+
