@@ -1,0 +1,39 @@
+In mongodb, till the time you have not create document in a collection, db and collection and collection will not get created.
+
+There is no need to create db. Just do "use <dbname>"
+i.e.
+use company
+
+There are two ways to create collection.
+1) createCollection function - This will create empty collection.
+db.createCollection('emp')
+
+2) insert function - this will create collection and insert document at a same time.
+db.dept.insert({"dept_id":1,"dept_name":"Account"})
+
+Note : There are 3 insert function insert, insertOne, insertMany
+With insertOne function, you can insert only one document at a time.
+i.e.
+db.dept.insertOne({"dept_id":2,"dept_name":"Sales"})
+
+With insertMany function, you can insert multiple documnet at a time.
+i.e.
+db.dept.insertMany([{"dept_id":3,"dept_name":"HR"},{"dept_id":4,"dept_name":"IT"},{"dept_id":5,"dept_name":"Marketing"}])
+
+You can use programming loops to insert many records like for loop in mongo shell.
+i.e.
+> for (i=1;i<10;i++){
+... db.numbers.insert({"a":i})
+... }
+WriteResult({ "nInserted" : 1 })
+> db.numbers.find()
+{ "_id" : ObjectId("5cb97aaeec7d944621e36af2"), "a" : 1 }
+{ "_id" : ObjectId("5cb97aaeec7d944621e36af3"), "a" : 2 }
+{ "_id" : ObjectId("5cb97aaeec7d944621e36af4"), "a" : 3 }
+{ "_id" : ObjectId("5cb97aaeec7d944621e36af5"), "a" : 4 }
+{ "_id" : ObjectId("5cb97aaeec7d944621e36af6"), "a" : 5 }
+{ "_id" : ObjectId("5cb97aaeec7d944621e36af7"), "a" : 6 }
+{ "_id" : ObjectId("5cb97aaeec7d944621e36af8"), "a" : 7 }
+{ "_id" : ObjectId("5cb97aaeec7d944621e36af9"), "a" : 8 }
+{ "_id" : ObjectId("5cb97aaeec7d944621e36afa"), "a" : 9 }
+>

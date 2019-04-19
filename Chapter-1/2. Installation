@@ -1,0 +1,14 @@
+You can install mongo db by 2 ways.
+1) RPM way.
+2) TGZ way.
+You can download both things from below URL.
+https://www.mongodb.com/download-center/community
+
+You can find 5 types of packages on this site.
+server  ---> RPM for mongodb
+mongos  ---> Mongos required in sharding with replication setup
+tools   ---> Utliity related to mongodb
+shell   ---> Provide mongo shell
+TGZ     ---> Above all 4 packages included in this package
+
+

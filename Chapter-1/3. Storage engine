@@ -1,0 +1,26 @@
+How Storage Engines Affect Performance
+• Writing and reading documents
+• Concurrency
+• Compression algorithms
+• Index format and implementation
+• On-disk format
+
+MongoDB Storage Engines
+As of MongoDB 3.4, three storage engine options are available:
+• WiredTiger (default) – with the option of on-disk/at rest encryption (Enterprise only)
+• MMAPv1
+• In-memory storage (Enterprise only)
+
+Notable features of theWiredTiger storage engine that do not exist in the MMAPv1 storage engine include:
+– Compression
+– Document-level concurrency
+
+WiredTiger Compression Options
+• snappy (default): less CPU usage than zlib, less reduction in data size
+• zlib: greater CPUusage than snappy, greater reduction in data size
+• no compression
+
+Configuring Memory Usage in WiredTiger
+• By default, this value is set to themaximumof:
+– 50% of physical RAM minus 1GB or 256 MB (for MongoDB 3.4+)
+– 60% of physical RAM minus 1GB or 1GB (for MongoDB 3.2)

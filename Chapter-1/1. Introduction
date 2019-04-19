@@ -1,0 +1,14 @@
+Mongodb is non-SQL DB.
+It take input in JSON format and store data into BISON format (Binary form of JSON)
+It is vertical scalable.
+
+    Mongodb                             SQL
+DB-->Collection-->documents     DB-->Table-->row/column
+
+_id :
+    All documents mush have an _id field. If no _id is specified when a document is inserted, MongoDB will add the _id field as an ObjectId.
+    _id is immutable
+    Itcan not be an array
+    the _id field must be unique to a collection
+    It act as primary key for replication.
+    Its a 12 byte Hex String ( Date | MAC | address | PID | Counter ) i.e. ObjectId("58dc309ce3f39998099d6275")
