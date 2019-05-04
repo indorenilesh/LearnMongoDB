@@ -3,7 +3,7 @@ import random
 import datetime
 import time
 
-myclient = pymongo.MongoClient("mongodb://192.168.80.131:27010/")
+myclient = pymongo.MongoClient("mongodb://192.168.80.131:27041/")
 mydb = myclient["stock"]
 mycol = mydb["stock_detail"]
 

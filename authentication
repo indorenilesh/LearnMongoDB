@@ -1,0 +1,3 @@
+athentication - will identify and verify user credential and give system access.
+authorization - will check what operations you are allowed/authorized to do with db
+

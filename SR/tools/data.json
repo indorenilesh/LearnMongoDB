@@ -1,3 +1,4 @@
+{ "s_id" : "11", "s_name" : "bata", "s_min" : "40", "s_max" : "50" }
 { "s_id" : "12", "s_name" : "tata", "s_min" : "2100", "s_max" : "2300" }
 { "s_id" : "13", "s_name" : "mahindra", "s_min" : "950", "s_max" : "1150" }
 { "s_id" : "14", "s_name" : "lnt", "s_min" : "280", "s_max" : "350" }
@@ -9,7 +10,6 @@
 { "s_id" : "20", "s_name" : "ags", "s_min" : "10", "s_max" : "15" }
 { "s_id" : "21", "s_name" : "aipl", "s_min" : "30", "s_max" : "40" }
 { "s_id" : "22", "s_name" : "kotak", "s_min" : "650", "s_max" : "740" }
-{ "s_id" : "11", "s_name" : "bata", "s_min" : "40", "s_max" : "50" }
 { "s_id" : "23", "s_name" : "cipla", "s_min" : "250", "s_max" : "260" }
 { "s_id" : "24", "s_name" : "sunpharma", "s_min" : "450", "s_max" : "560" }
 { "s_id" : "25", "s_name" : "alchem", "s_min" : "270", "s_max" : "290" }

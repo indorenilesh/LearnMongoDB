@@ -1,0 +1,7 @@
+operationprofiling : 0 1 2
+0 disable
+1 will catch slow query
+2 will catch all query
+it will create seperate collection in db as "system.profile".
+use db.setProfilingLevel to set it at DB level.
+

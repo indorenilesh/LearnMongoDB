@@ -12,3 +12,9 @@ _id :
     the _id field must be unique to a collection
     It act as primary key for replication.
     Its a 12 byte Hex String ( Date | MAC | address | PID | Counter ) i.e. ObjectId("58dc309ce3f39998099d6275")
+
+default port
+-------------
+mongos 27017
+mongo-shard 27018
+mongo-config 27019
