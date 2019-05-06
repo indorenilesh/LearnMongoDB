@@ -1,0 +1,377 @@
+=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2019.05.04 12:20:56 =~=~=~=~=~=~=~=~=~=~=~=
+login as: root
+root@192.168.80.131's password: 
+Last login: Sat May  4 11:09:28 2019 from 192.168.80.1
+[root@vm-1 ~]# /local/apps/standalone/start.sh 
+about to fork child process, waiting until server is ready for connections.
+forked process: 10153
+ERROR: child process failed, exited with error number 48
+To see additional information in this output, start without the "--fork" option.
+[root@vm-1 ~]# netstat -ntlp
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
+tcp        0      0 0.0.0.0:27021           0.0.0.0:*               LISTEN      8276/mongod         
+tcp        0      0 0.0.0.0:27022           0.0.0.0:*               LISTEN      8378/mongod         
+tcp        0      0 0.0.0.0:27023           0.0.0.0:*               LISTEN      8492/mongod         
+tcp        0      0 0.0.0.0:111             0.0.0.0:*               LISTEN      1/systemd           
+tcp        0      0 0.0.0.0:6000            0.0.0.0:*               LISTEN      6677/X              
+tcp        0      0 192.168.122.1:53        0.0.0.0:*               LISTEN      6845/dnsmasq        
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      6580/sshd           
+tcp        0      0 0.0.0.0:27031           0.0.0.0:*               LISTEN      7637/mongod         
+tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN      6583/cupsd          
+tcp        0      0 0.0.0.0:27032           0.0.0.0:*               LISTEN      7732/mongod         
+tcp        0      0 0.0.0.0:27033           0.0.0.0:*               LISTEN      7833/mongod         
+tcp        0      0 127.0.0.1:25            0.0.0.0:*               LISTEN      6912/master         
+tcp        0      0 0.0.0.0:27041           0.0.0.0:*               LISTEN      8633/mongos         
+tcp        0      0 0.0.0.0:27010           0.0.0.0:*               LISTEN      8919/mongod         
+tcp        0      0 0.0.0.0:27042           0.0.0.0:*               LISTEN      8670/mongos         
+tcp        0      0 0.0.0.0:27043           0.0.0.0:*               LISTEN      8710/mongos         
+tcp        0      0 0.0.0.0:27011           0.0.0.0:*               LISTEN      7527/mongod         
+tcp        0      0 0.0.0.0:27012           0.0.0.0:*               LISTEN      8019/mongod         
+tcp        0      0 0.0.0.0:27013           0.0.0.0:*               LISTEN      8131/mongod         
+tcp6       0      0 :::111                  :::*                    LISTEN      1/systemd           
+tcp6       0      0 :::6000                 :::*                    LISTEN      6677/X              
+tcp6       0      0 :::22                   :::*                    LISTEN      6580/sshd           
+tcp6       0      0 ::1:631                 :::*                    LISTEN      6583/cupsd          
+tcp6       0      0 ::1:25                  :::*                    LISTEN      6912/master         
+[root@vm-1 ~]# mongo --port 27010mongodump --help
+Usage:
+  mongodump <options>
+
+Export the content of a running server into .bson files.
+
+Specify a database with -d and a collection with -c to only dump that database or collection.
+
+See http://docs.mongodb.org/manual/reference/program/mongodump/ for more information.
+
+general options:
+      --help                                                print usage
+      --version                                             print the tool version and exit
+
+verbosity options:
+  -v, --verbose=<level>                                     more detailed log output (include multiple times for more
+                                                            verbosity, e.g. -vvvvv, or specify a numeric value, e.g.
+                                                            --verbose=N)
+      --quiet                                               hide all log output
+
+connection options:
+  -h, --host=<hostname>                                     mongodb host to connect to (setname/host1,host2 for replica
+                                                            sets)
+      --port=<port>                                         server port (can also use --host hostname:port)
+
+ssl options:
+      --ssl                                                 connect to a mongod or mongos that has ssl enabled
+      --sslCAFile=<filename>                                the .pem file containing the root certificate chain from the
+                                                            certificate authority
+      --sslPEMKeyFile=<filename>                            the .pem file containing the certificate and key
+      --sslPEMKeyPassword=<password>                        the password to decrypt the sslPEMKeyFile, if necessary
+      --sslCRLFile=<filename>                               the .pem file containing the certificate revocation list
+      --sslAllowInvalidCertificates                         bypass the validation for server certificates
+      --sslAllowInvalidHostnames                            bypass the validation for server name
+      --sslFIPSMode                                         use FIPS mode of the installed openssl library
+
+authentication options:
+  -u, --username=<username>                                 username for authentication
+  -p, --password=<password>                                 password for authentication
+      --authenticationDatabase=<database-name>              database that holds the user's credentials
+      --authenticationMechanism=<mechanism>                 authentication mechanism to use
+
+namespace options:
+  -d, --db=<database-name>                                  database to use
+  -c, --collection=<collection-name>                        collection to use
+
+uri options:
+      --uri=mongodb-uri                                     mongodb uri connection string
+
+query options:
+  -q, --query=                                              query filter, as a JSON string, e.g., '{x:{$gt:1}}'
+      --queryFile=                                          path to a file containing a query filter (JSON)
+      --readPreference=<string>|<json>                      specify either a preference name or a preference json object
+      --forceTableScan                                      force a table scan
+
+output options:
+  -o, --out=<directory-path>                                output directory, or '-' for stdout (defaults to 'dump')
+      --gzip                                                compress archive our collection output with Gzip
+      --repair                                              try to recover documents from damaged data files (not
+                                                            supported by all storage engines)
+      --oplog                                               use oplog for taking a point-in-time snapshot
+      --archive=<file-path>                                 dump as an archive to the specified path. If flag is specified
+                                                            without a value, archive is written to stdout
+      --dumpDbUsersAndRoles                                 dump user and role definitions for the specified database
+      --excludeCollection=<collection-name>                 collection to exclude from the dump (may be specified multiple
+                                                            times to exclude additional collections)
+      --excludeCollectionsWithPrefix=<collection-prefix>    exclude all collections from the dump that have the given
+                                                            prefix (may be specified multiple times to exclude additional
+                                                            prefixes)
+  -j, --numParallelCollections=                             number of collections to dump in parallel (4 by default)
+                                                            (default: 4)
+      --viewsAsCollections                                  dump views as normal collections with their produced data,
+                                                            omitting standard collections
+[root@vm-1 ~]# mongodump --help-d stock -c tick_data -o tick_data.jd
+2019-05-04T12:23:43.172+0530Failed: error connecting to db server: no reachable servers
+[root@vm-1 ~]# telnet localhost 27010
+Trying ::1...
+telnet: connect to address ::1: Connection refused
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+^]
+telnet> quit
+Connection closed.
+[root@vm-1 ~]# mongo --27-010telnet localhost 27010mongodump -d stock -c tick_data -o tick_data --port 27010
+2019-05-04T12:24:11.921+0530writing stock.tick_data to 
+2019-05-04T12:24:14.988+0530[#########...............]  stock.tick_data  309046/745564  (41.5%)
+2019-05-04T12:24:17.545+0530[########################]  stock.tick_data  745564/745564  (100.0%)
+2019-05-04T12:24:17.546+0530done dumping stock.tick_data (745564 documents)
+[root@vm-1 ~]# du -sh tick_data/
+66Mtick_data/
+[root@vm-1 ~]# ll tick_data/
+total 0
+drwxr-xr-x. 2 root root 59 May  4 12:24 stock
+[root@vm-1 ~]# ll tick_data/stock/
+total 67016
+-rw-r--r--. 1 root root 68616740 May  4 12:24 tick_data.bson
+-rw-r--r--. 1 root root      129 May  4 12:24 tick_data.metadata.json
+[root@vm-1 ~]# mongorestore --help
+Usage:
+  mongorestore <options> <directory or file to restore>
+
+Restore backups generated with mongodump to a running server.
+
+Specify a database with -d to restore a single database from the target directory,
+or use -d and -c to restore a single collection from a single .bson file.
+
+See http://docs.mongodb.org/manual/reference/program/mongorestore/ for more information.
+
+general options:
+      --help                                                print usage
+      --version                                             print the tool version and exit
+
+verbosity options:
+  -v, --verbose=<level>                                     more detailed log output (include multiple times for more
+                                                            verbosity, e.g. -vvvvv, or specify a numeric value, e.g.
+                                                            --verbose=N)
+      --quiet                                               hide all log output
+
+connection options:
+  -h, --host=<hostname>                                     mongodb host to connect to (setname/host1,host2 for replica
+                                                            sets)
+      --port=<port>                                         server port (can also use --host hostname:port)
+
+ssl options:
+      --ssl                                                 connect to a mongod or mongos that has ssl enabled
+      --sslCAFile=<filename>                                the .pem file containing the root certificate chain from the
+                                                            certificate authority
+      --sslPEMKeyFile=<filename>                            the .pem file containing the certificate and key
+      --sslPEMKeyPassword=<password>                        the password to decrypt the sslPEMKeyFile, if necessary
+      --sslCRLFile=<filename>                               the .pem file containing the certificate revocation list
+      --sslAllowInvalidCertificates                         bypass the validation for server certificates
+      --sslAllowInvalidHostnames                            bypass the validation for server name
+      --sslFIPSMode                                         use FIPS mode of the installed openssl library
+
+authentication options:
+  -u, --username=<username>                                 username for authentication
+  -p, --password=<password>                                 password for authentication
+      --authenticationDatabase=<database-name>              database that holds the user's credentials
+      --authenticationMechanism=<mechanism>                 authentication mechanism to use
+
+uri options:
+      --uri=mongodb-uri                                     mongodb uri connection string
+
+namespace options:
+  -d, --db=<database-name>                                  database to use when restoring from a BSON file
+  -c, --collection=<collection-name>                        collection to use when restoring from a BSON file
+      --excludeCollection=<collection-name>                 DEPRECATED; collection to skip over during restore (may be
+                                                            specified multiple times to exclude additional collections)
+      --excludeCollectionsWithPrefix=<collection-prefix>    DEPRECATED; collections to skip over during restore that have
+                                                            the given prefix (may be specified multiple times to exclude
+                                                            additional prefixes)
+      --nsExclude=<namespace-pattern>                       exclude matching namespaces
+      --nsInclude=<namespace-pattern>                       include matching namespaces
+      --nsFrom=<namespace-pattern>                          rename matching namespaces, must have matching nsTo
+      --nsTo=<namespace-pattern>                            rename matched namespaces, must have matching nsFrom
+
+input options:
+      --objcheck                                            validate all objects before inserting
+      --oplogReplay                                         replay oplog for point-in-time restore
+      --oplogLimit=<seconds>[:ordinal]                      only include oplog entries before the provided Timestamp
+      --oplogFile=<filename>                                oplog file to use for replay of oplog
+      --archive=<filename>                                  restore dump from the specified archive file.  If flag is
+                                                            specified without a value, archive is read from stdin
+      --restoreDbUsersAndRoles                              restore user and role definitions for the given database
+      --dir=<directory-name>                                input directory, use '-' for stdin
+      --gzip                                                decompress gzipped input
+
+restore options:
+      --drop                                                drop each collection before import
+      --dryRun                                              view summary without importing anything. recommended with
+                                                            verbosity
+      --writeConcern=<write-concern>                        write concern options e.g. --writeConcern majority,
+                                                            --writeConcern '{w: 3, wtimeout: 500, fsync: true, j: true}'
+      --noIndexRestore                                      don't restore indexes
+      --noOptionsRestore                                    don't restore collection options
+      --keepIndexVersion                                    don't update index version
+      --maintainInsertionOrder                              preserve order of documents during restoration
+  -j, --numParallelCollections=                             number of collections to restore in parallel (4 by default)
+                                                            (default: 4)
+      --numInsertionWorkersPerCollection=                   number of insert operations to run concurrently per collection
+                                                            (1 by default) (default: 1)
+      --stopOnError                                         stop restoring if an error is encountered on insert (off by
+                                                            default)
+      --bypassDocumentValidation                            bypass document validation
+      --preserveUUID                                        preserve original collection UUIDs (off by default, requires
+                                                            drop)
+[root@vm-1 ~]# mongorestore --helpll tick_data/stock/mongorestore --help-d stock -c tick_data --port 27041 -ftick_data//stock/tick_data.bson 
+2019-05-04T12:25:36.964+0530checking for collection data in tick_data/stock/tick_data.bson
+2019-05-04T12:25:36.980+0530reading metadata for stock.tick_data from tick_data/stock/tick_data.metadata.json
+2019-05-04T12:25:36.983+0530restoring stock.tick_data from tick_data/stock/tick_data.bson
+2019-05-04T12:25:40.275+0530[........................]  stock.tick_data  2.28MB/65.4MB  (3.5%)
+2019-05-04T12:25:42.962+0530[#.......................]  stock.tick_data  4.39MB/65.4MB  (6.7%)
+2019-05-04T12:25:46.827+0530[##......................]  stock.tick_data  5.79MB/65.4MB  (8.9%)
+2019-05-04T12:25:49.198+0530[##......................]  stock.tick_data  7.06MB/65.4MB  (10.8%)
+2019-05-04T12:25:52.194+0530[###.....................]  stock.tick_data  8.63MB/65.4MB  (13.2%)
+2019-05-04T12:25:55.294+0530[###.....................]  stock.tick_data  10.1MB/65.4MB  (15.4%)
+2019-05-04T12:25:58.236+0530[####....................]  stock.tick_data  11.5MB/65.4MB  (17.6%)
+2019-05-04T12:26:00.978+0530[####....................]  stock.tick_data  12.7MB/65.4MB  (19.4%)
+2019-05-04T12:26:04.325+0530[#####...................]  stock.tick_data  14.2MB/65.4MB  (21.7%)
+2019-05-04T12:26:07.201+0530[#####...................]  stock.tick_data  15.5MB/65.4MB  (23.7%)
+2019-05-04T12:26:10.242+0530[######..................]  stock.tick_data  16.6MB/65.4MB  (25.4%)
+2019-05-04T12:26:12.966+0530[######..................]  stock.tick_data  17.7MB/65.4MB  (27.1%)
+2019-05-04T12:26:15.977+0530[#######.................]  stock.tick_data  19.4MB/65.4MB  (29.6%)
+2019-05-04T12:26:19.395+0530[#######.................]  stock.tick_data  20.8MB/65.4MB  (31.8%)
+2019-05-04T12:26:22.361+0530[########................]  stock.tick_data  22.0MB/65.4MB  (33.7%)
+2019-05-04T12:26:25.892+0530[########................]  stock.tick_data  23.3MB/65.4MB  (35.5%)
+2019-05-04T12:26:28.176+0530[########................]  stock.tick_data  24.3MB/65.4MB  (37.2%)
+2019-05-04T12:26:30.956+0530[#########...............]  stock.tick_data  25.7MB/65.4MB  (39.3%)
+2019-05-04T12:26:33.965+0530[##########..............]  stock.tick_data  27.5MB/65.4MB  (42.0%)
+2019-05-04T12:26:36.956+0530[##########..............]  stock.tick_data  28.6MB/65.4MB  (43.7%)
+2019-05-04T12:26:39.982+0530[###########.............]  stock.tick_data  30.2MB/65.4MB  (46.1%)
+2019-05-04T12:26:43.665+0530[###########.............]  stock.tick_data  31.3MB/65.4MB  (47.9%)
+2019-05-04T12:26:46.073+0530[###########.............]  stock.tick_data  32.3MB/65.4MB  (49.4%)
+2019-05-04T12:26:48.953+0530[############............]  stock.tick_data  34.1MB/65.4MB  (52.2%)
+2019-05-04T12:26:52.209+0530[#############...........]  stock.tick_data  35.5MB/65.4MB  (54.2%)
+2019-05-04T12:26:55.230+0530[#############...........]  stock.tick_data  37.4MB/65.4MB  (57.1%)
+2019-05-04T12:26:58.590+0530[##############..........]  stock.tick_data  38.3MB/65.4MB  (58.5%)
+2019-05-04T12:27:01.381+0530[##############..........]  stock.tick_data  39.8MB/65.4MB  (60.8%)
+2019-05-04T12:27:04.173+0530[##############..........]  stock.tick_data  40.8MB/65.4MB  (62.4%)
+2019-05-04T12:27:07.630+0530[###############.........]  stock.tick_data  42.1MB/65.4MB  (64.4%)
+2019-05-04T12:27:10.272+0530[###############.........]  stock.tick_data  43.5MB/65.4MB  (66.4%)
+2019-05-04T12:27:13.114+0530[################........]  stock.tick_data  44.8MB/65.4MB  (68.4%)
+2019-05-04T12:27:18.947+0530[################........]  stock.tick_data  46.0MB/65.4MB  (70.3%)
+2019-05-04T12:27:19.269+0530[################........]  stock.tick_data  46.2MB/65.4MB  (70.7%)
+2019-05-04T12:27:22.109+0530[#################.......]  stock.tick_data  47.6MB/65.4MB  (72.7%)
+2019-05-04T12:27:24.957+0530[#################.......]  stock.tick_data  49.1MB/65.4MB  (75.0%)
+2019-05-04T12:27:28.069+0530[##################......]  stock.tick_data  50.5MB/65.4MB  (77.1%)
+2019-05-04T12:27:30.952+0530[###################.....]  stock.tick_data  52.0MB/65.4MB  (79.4%)
+2019-05-04T12:27:33.952+0530[###################.....]  stock.tick_data  53.6MB/65.4MB  (82.0%)
+2019-05-04T12:27:36.950+0530[####################....]  stock.tick_data  55.0MB/65.4MB  (84.1%)
+2019-05-04T12:27:40.171+0530[####################....]  stock.tick_data  56.3MB/65.4MB  (86.0%)
+2019-05-04T12:27:42.968+0530[#####################...]  stock.tick_data  57.8MB/65.4MB  (88.4%)
+2019-05-04T12:27:45.959+0530[#####################...]  stock.tick_data  59.3MB/65.4MB  (90.7%)
+2019-05-04T12:27:49.066+0530[######################..]  stock.tick_data  60.6MB/65.4MB  (92.7%)
+2019-05-04T12:27:51.969+0530[######################..]  stock.tick_data  61.6MB/65.4MB  (94.2%)
+2019-05-04T12:27:54.958+0530[#######################.]  stock.tick_data  62.9MB/65.4MB  (96.1%)
+2019-05-04T12:27:58.646+0530[#######################.]  stock.tick_data  64.0MB/65.4MB  (97.8%)
+2019-05-04T12:28:01.779+0530[#######################.]  stock.tick_data  64.3MB/65.4MB  (98.3%)
+2019-05-04T12:28:04.224+0530[#######################.]  stock.tick_data  65.0MB/65.4MB  (99.4%)
+2019-05-04T12:28:06.000+0530[########################]  stock.tick_data  65.4MB/65.4MB  (100.0%)
+2019-05-04T12:28:06.237+0530no indexes to restore
+2019-05-04T12:28:06.320+0530finished restoring stock.tick_data (745564 documents)
+2019-05-04T12:28:06.320+0530done
+[root@vm-1 ~]# mongorestore -d stock -c tick_data --port 27041 tick_data/stock/tick_data.bson 
+2019-05-04T12:37:02.408+0530checking for collection data in tick_data/stock/tick_data.bson
+2019-05-04T12:37:02.413+0530reading metadata for stock.tick_data from tick_data/stock/tick_data.metadata.json
+2019-05-04T12:37:02.414+0530restoring stock.tick_data from tick_data/stock/tick_data.bson
+2019-05-04T12:37:05.593+0530[........................]  stock.tick_data  1.93MB/65.4MB  (3.0%)
+2019-05-04T12:37:08.401+0530[#.......................]  stock.tick_data  3.42MB/65.4MB  (5.2%)
+2019-05-04T12:37:11.412+0530[#.......................]  stock.tick_data  4.65MB/65.4MB  (7.1%)
+2019-05-04T12:37:14.647+0530[##......................]  stock.tick_data  5.62MB/65.4MB  (8.6%)
+2019-05-04T12:37:17.641+0530[##......................]  stock.tick_data  6.67MB/65.4MB  (10.2%)
+2019-05-04T12:37:20.403+0530[##......................]  stock.tick_data  7.55MB/65.4MB  (11.5%)
+2019-05-04T12:37:23.401+0530[###.....................]  stock.tick_data  8.60MB/65.4MB  (13.1%)
+2019-05-04T12:37:26.871+0530[###.....................]  stock.tick_data  9.48MB/65.4MB  (14.5%)
+2019-05-04T12:37:29.413+0530[###.....................]  stock.tick_data  10.5MB/65.4MB  (16.1%)
+2019-05-04T12:37:32.403+0530[####....................]  stock.tick_data  11.6MB/65.4MB  (17.7%)
+2019-05-04T12:37:35.418+0530[####....................]  stock.tick_data  12.6MB/65.4MB  (19.2%)
+2019-05-04T12:37:38.400+0530[####....................]  stock.tick_data  13.4MB/65.4MB  (20.5%)
+2019-05-04T12:37:41.402+0530[#####...................]  stock.tick_data  14.4MB/65.4MB  (22.0%)
+2019-05-04T12:37:44.420+0530[#####...................]  stock.tick_data  14.8MB/65.4MB  (22.7%)
+2019-05-04T12:37:47.416+0530[#####...................]  stock.tick_data  15.6MB/65.4MB  (23.9%)
+2019-05-04T12:37:50.720+0530[#####...................]  stock.tick_data  16.3MB/65.4MB  (24.9%)
+2019-05-04T12:37:53.624+0530[######..................]  stock.tick_data  16.6MB/65.4MB  (25.4%)
+2019-05-04T12:37:56.565+0530[######..................]  stock.tick_data  17.2MB/65.4MB  (26.3%)
+2019-05-04T12:37:59.496+0530[######..................]  stock.tick_data  18.1MB/65.4MB  (27.6%)
+2019-05-04T12:38:02.457+0530[######..................]  stock.tick_data  18.4MB/65.4MB  (28.2%)
+2019-05-04T12:38:05.736+0530[######..................]  stock.tick_data  19.1MB/65.4MB  (29.1%)
+2019-05-04T12:38:08.857+0530[######..................]  stock.tick_data  19.1MB/65.4MB  (29.1%)
+2019-05-04T12:38:11.663+0530[#######.................]  stock.tick_data  19.6MB/65.4MB  (29.9%)
+2019-05-04T12:38:14.688+0530[#######.................]  stock.tick_data  20.0MB/65.4MB  (30.6%)
+2019-05-04T12:38:17.768+0530[#######.................]  stock.tick_data  21.0MB/65.4MB  (32.1%)
+2019-05-04T12:38:20.401+0530[#######.................]  stock.tick_data  21.8MB/65.4MB  (33.3%)
+2019-05-04T12:38:23.512+0530[########................]  stock.tick_data  22.9MB/65.4MB  (35.0%)
+2019-05-04T12:38:26.412+0530[########................]  stock.tick_data  24.0MB/65.4MB  (36.7%)
+2019-05-04T12:38:29.526+0530[#########...............]  stock.tick_data  25.1MB/65.4MB  (38.4%)
+2019-05-04T12:38:33.019+0530[#########...............]  stock.tick_data  25.9MB/65.4MB  (39.6%)
+2019-05-04T12:38:36.080+0530[#########...............]  stock.tick_data  26.1MB/65.4MB  (39.8%)
+2019-05-04T12:38:38.555+0530[#########...............]  stock.tick_data  26.3MB/65.4MB  (40.2%)
+2019-05-04T12:38:41.416+0530[##########..............]  stock.tick_data  27.3MB/65.4MB  (41.7%)
+2019-05-04T12:38:45.258+0530[##########..............]  stock.tick_data  28.2MB/65.4MB  (43.1%)
+2019-05-04T12:38:47.457+0530[##########..............]  stock.tick_data  28.8MB/65.4MB  (44.0%)
+2019-05-04T12:38:50.581+0530[##########..............]  stock.tick_data  29.6MB/65.4MB  (45.2%)
+2019-05-04T12:38:53.534+0530[###########.............]  stock.tick_data  30.1MB/65.4MB  (46.0%)
+2019-05-04T12:38:57.425+0530[###########.............]  stock.tick_data  30.7MB/65.4MB  (46.9%)
+2019-05-04T12:38:59.771+0530[###########.............]  stock.tick_data  31.1MB/65.4MB  (47.5%)
+2019-05-04T12:39:02.616+0530[###########.............]  stock.tick_data  31.4MB/65.4MB  (48.0%)
+2019-05-04T12:39:05.599+0530[###########.............]  stock.tick_data  31.4MB/65.4MB  (48.0%)
+2019-05-04T12:39:09.184+0530[###########.............]  stock.tick_data  31.8MB/65.4MB  (48.6%)
+2019-05-04T12:39:12.107+0530[###########.............]  stock.tick_data  32.2MB/65.4MB  (49.2%)
+2019-05-04T12:39:14.437+0530[############............]  stock.tick_data  33.0MB/65.4MB  (50.4%)
+2019-05-04T12:39:18.818+0530[############............]  stock.tick_data  33.4MB/65.4MB  (51.0%)
+2019-05-04T12:39:20.663+0530[############............]  stock.tick_data  34.1MB/65.4MB  (52.0%)
+2019-05-04T12:39:23.769+0530[############............]  stock.tick_data  34.8MB/65.4MB  (53.1%)
+2019-05-04T12:39:26.483+0530[############............]  stock.tick_data  35.3MB/65.4MB  (53.9%)
+2019-05-04T12:39:29.409+0530[#############...........]  stock.tick_data  35.7MB/65.4MB  (54.6%)
+2019-05-04T12:39:32.710+0530[#############...........]  stock.tick_data  36.5MB/65.4MB  (55.8%)
+2019-05-04T12:39:35.410+0530[#############...........]  stock.tick_data  37.0MB/65.4MB  (56.5%)
+2019-05-04T12:39:38.619+0530[#############...........]  stock.tick_data  37.5MB/65.4MB  (57.3%)
+2019-05-04T12:39:41.642+0530[##############..........]  stock.tick_data  38.4MB/65.4MB  (58.7%)
+2019-05-04T12:39:44.470+0530[##############..........]  stock.tick_data  39.1MB/65.4MB  (59.8%)
+2019-05-04T12:39:47.454+0530[##############..........]  stock.tick_data  39.9MB/65.4MB  (61.0%)
+2019-05-04T12:39:50.761+0530[##############..........]  stock.tick_data  40.7MB/65.4MB  (62.2%)
+2019-05-04T12:39:53.527+0530[###############.........]  stock.tick_data  41.6MB/65.4MB  (63.6%)
+2019-05-04T12:39:56.404+0530[###############.........]  stock.tick_data  42.6MB/65.4MB  (65.1%)
+2019-05-04T12:39:59.418+0530[###############.........]  stock.tick_data  43.2MB/65.4MB  (66.1%)
+2019-05-04T12:40:02.537+0530[################........]  stock.tick_data  44.0MB/65.4MB  (67.2%)
+2019-05-04T12:40:05.813+0530[################........]  stock.tick_data  44.6MB/65.4MB  (68.1%)
+2019-05-04T12:40:08.443+0530[################........]  stock.tick_data  45.0MB/65.4MB  (68.8%)
+2019-05-04T12:40:11.455+0530[################........]  stock.tick_data  46.0MB/65.4MB  (70.2%)
+2019-05-04T12:40:14.591+0530[#################.......]  stock.tick_data  46.8MB/65.4MB  (71.5%)
+2019-05-04T12:40:17.624+0530[#################.......]  stock.tick_data  47.3MB/65.4MB  (72.3%)
+2019-05-04T12:40:20.705+0530[#################.......]  stock.tick_data  48.3MB/65.4MB  (73.8%)
+2019-05-04T12:40:23.545+0530[#################.......]  stock.tick_data  49.0MB/65.4MB  (74.8%)
+2019-05-04T12:40:26.817+0530[##################......]  stock.tick_data  49.9MB/65.4MB  (76.0%)
+2019-05-04T12:40:29.554+0530[##################......]  stock.tick_data  50.7MB/65.4MB  (77.5%)
+2019-05-04T12:40:32.635+0530[##################......]  stock.tick_data  51.8MB/65.4MB  (79.1%)
+2019-05-04T12:40:35.446+0530[###################.....]  stock.tick_data  52.8MB/65.4MB  (80.7%)
+2019-05-04T12:40:38.533+0530[###################.....]  stock.tick_data  53.2MB/65.4MB  (81.3%)
+2019-05-04T12:40:41.443+0530[###################.....]  stock.tick_data  53.8MB/65.4MB  (82.3%)
+2019-05-04T12:40:44.455+0530[###################.....]  stock.tick_data  54.5MB/65.4MB  (83.3%)
+2019-05-04T12:40:47.584+0530[####################....]  stock.tick_data  55.2MB/65.4MB  (84.4%)
+2019-05-04T12:40:50.810+0530[####################....]  stock.tick_data  55.8MB/65.4MB  (85.3%)
+2019-05-04T12:40:53.407+0530[####################....]  stock.tick_data  56.9MB/65.4MB  (86.9%)
+2019-05-04T12:40:56.712+0530[#####################...]  stock.tick_data  57.9MB/65.4MB  (88.5%)
+2019-05-04T12:41:00.491+0530[#####################...]  stock.tick_data  59.0MB/65.4MB  (90.1%)
+2019-05-04T12:41:02.415+0530[#####################...]  stock.tick_data  59.2MB/65.4MB  (90.5%)
+2019-05-04T12:41:05.766+0530[#####################...]  stock.tick_data  59.8MB/65.4MB  (91.3%)
+2019-05-04T12:41:08.611+0530[######################..]  stock.tick_data  60.5MB/65.4MB  (92.4%)
+2019-05-04T12:41:11.662+0530[######################..]  stock.tick_data  61.2MB/65.4MB  (93.5%)
+2019-05-04T12:41:14.403+0530[######################..]  stock.tick_data  61.7MB/65.4MB  (94.3%)
+2019-05-04T12:41:17.522+0530[######################..]  stock.tick_data  62.7MB/65.4MB  (95.8%)
+2019-05-04T12:41:20.490+0530[#######################.]  stock.tick_data  63.3MB/65.4MB  (96.7%)
+2019-05-04T12:41:23.435+0530[#######################.]  stock.tick_data  64.2MB/65.4MB  (98.0%)
+2019-05-04T12:41:27.213+0530[#######################.]  stock.tick_data  65.4MB/65.4MB  (99.9%)
+2019-05-04T12:41:28.074+0530[########################]  stock.tick_data  65.4MB/65.4MB  (100.0%)
+2019-05-04T12:41:28.081+0530no indexes to restore
+2019-05-04T12:41:28.081+0530finished restoring stock.tick_data (745564 documents)
+2019-05-04T12:41:28.191+0530done
+[root@vm-1 ~]# 

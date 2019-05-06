@@ -1,0 +1,203 @@
+=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2019.05.04 12:27:39 =~=~=~=~=~=~=~=~=~=~=~=
+login as: root
+root@192.168.80.131's password: 
+Last login: Sat May  4 12:21:00 2019 from 192.168.80.1
+[root@vm-1 ~]# w
+ 12:28:10 up  1:20,  3 users,  load average: 15.71, 7.76, 3.27
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+root     pts/0    192.168.80.1     11:09   50.00s  2.33s  1.90s mongo --port 27041
+root     pts/1    192.168.80.1     12:21    2:34   0.22s  0.22s -bash
+root     pts/2    192.168.80.1     12:27    2.00s  0.15s  0.03s w
+[root@vm-1 ~]# 
+[root@vm-1 ~]# 
+[root@vm-1 ~]# 
+[root@vm-1 ~]# 
+[root@vm-1 ~]# mongo --port 27031
+MongoDB shell version v4.0.5
+connecting to: mongodb://127.0.0.1:27031/?gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("d9bc1766-5506-41f1-a186-f7e0849a3141") }
+MongoDB server version: 4.0.5
+Server has startup warnings: 
+2019-05-04T11:18:51.853+0530 I CONTROL  [initandlisten] 
+2019-05-04T11:18:51.853+0530 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2019-05-04T11:18:51.853+0530 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2019-05-04T11:18:51.853+0530 I CONTROL  [initandlisten] ** WARNING: You are running this process as the root user, which is not recommended.
+2019-05-04T11:18:51.853+0530 I CONTROL  [initandlisten] 
+2019-05-04T11:18:51.854+0530 I CONTROL  [initandlisten] 
+2019-05-04T11:18:51.854+0530 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/enabled is 'always'.
+2019-05-04T11:18:51.854+0530 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2019-05-04T11:18:51.854+0530 I CONTROL  [initandlisten] 
+2019-05-04T11:18:51.854+0530 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/defrag is 'always'.
+2019-05-04T11:18:51.854+0530 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2019-05-04T11:18:51.854+0530 I CONTROL  [initandlisten] 
+---
+Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+and anyone you share the URL with. MongoDB may use this information to make product
+improvements and to suggest MongoDB products and deployment options to you.
+
+To enable free monitoring, run the following command: db.enableFreeMonitoring()
+To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+
+SRconfig:PRIMARY> use configuse config
+switched to db config
+SRconfig:PRIMARY> show collectionsshow collections
+actionlog
+changelog
+chunks
+collections
+databases
+lockpings
+locks
+migrations
+mongos
+shards
+tags
+transactions
+version
+SRconfig:PRIMARY> use sharuse shause shuse suse useusu^C
+bye
+[root@vm-1 ~]# mongo --port 27010
+MongoDB shell version v4.0.5
+connecting to: mongodb://127.0.0.1:27010/?gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("e9745ddb-680c-4d83-8f61-c68ca21fa689") }
+MongoDB server version: 4.0.5
+Server has startup warnings: 
+2019-05-04T11:25:40.282+0530 I CONTROL  [initandlisten] 
+2019-05-04T11:25:40.282+0530 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2019-05-04T11:25:40.282+0530 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2019-05-04T11:25:40.282+0530 I CONTROL  [initandlisten] ** WARNING: You are running this process as the root user, which is not recommended.
+2019-05-04T11:25:40.282+0530 I CONTROL  [initandlisten] 
+2019-05-04T11:25:40.283+0530 I CONTROL  [initandlisten] 
+2019-05-04T11:25:40.283+0530 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/enabled is 'always'.
+2019-05-04T11:25:40.283+0530 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2019-05-04T11:25:40.283+0530 I CONTROL  [initandlisten] 
+2019-05-04T11:25:40.283+0530 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/defrag is 'always'.
+2019-05-04T11:25:40.283+0530 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2019-05-04T11:25:40.283+0530 I CONTROL  [initandlisten] 
+---
+Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+and anyone you share the URL with. MongoDB may use this information to make product
+improvements and to suggest MongoDB products and deployment options to you.
+
+To enable free monitoring, run the following command: db.enableFreeMonitoring()
+To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+
+> use stockuse stock
+switched to db stock
+> show collecitonsshow collecitons
+2019-05-04T12:40:54.429+0530 E QUERY    [js] Error: don't know how to show [collecitons] :
+shellHelper.show@src/mongo/shell/utils.js:1055:11
+shellHelper@src/mongo/shell/utils.js:766:15
+@(shellhelp2):1:1
+> db.getdb.gedb.getdb.get
+db.getCollection(            db.getLastErrorObj(          db.getProfilingStatus(       db.getSiblingDB(
+db.getCollectionInfos(       db.getLogComponents(         db.getQueryOptions(          db.getSisterDB(
+db.getCollectionNames(       db.getMongo(                 db.getReplicationInfo(       db.getSlaveOk(
+db.getFreeMonitoringStatus(  db.getName(                  db.getRole(                  db.getUser(
+db.getLastError(             db.getPrevError(             db.getRoles(                 db.getUsers(
+db.getLastErrorCmd(          db.getProfilingLevel(        db.getSession(               db.getWriteConcern(
+> db.getdb.gedb.gdb.tickdb.tick_data.getIndb.tick_data.getInddesdb.tick_data.getInddedb.tick_data.getIndddb.tick_data.getIndesdb.tick_data.getIndexdb.tick_data.getIndex
+db.tick_data.getIndexKeys(   db.tick_data.getIndexSpecs(  db.tick_data.getIndexes(
+> db.tick_data.getIndexedb.tick_data.getIndexes(db.tick_data.getIndexes(
+Display all 179 possibilities? (y or n)
+> db.tick_data.getIndexes()db.tick_data.getIndexes()
+[
+{
+"v" : 2,
+"key" : {
+"_id" : 1
+},
+"name" : "_id_",
+"ns" : "stock.tick_data"
+}
+]
+> db.tickdb.tick_data.find()db.tick_data.find()db.tick_data.find({)db.tick_data.find({})db.tick_data.find({})db.tick_data.find({"})db.tick_data.find({"s})db.tick_data.find({"sn})db.tick_data.find({"sna})db.tick_data.find({"snam})db.tick_data.find({"sname})db.tick_data.find({"sname:})db.tick_data.find({"sname})db.tick_data.find({"sname"})db.tick_data.find({"sname":})db.tick_data.find({"sname":"})db.tick_data.find({"sname":""})db.tick_data.find({"sname":""})db.tick_data.find({"sname":"c"})db.tick_data.find({"sname":"ci"})db.tick_data.find({"sname":"cip"})db.tick_data.find({"sname":"cipl"})db.tick_data.find({"sname":"cipla"})db.tick_data.find({"sname":"cipla"})db.tick_data.find({"sname":"cipla"})db.tick_data.find({"sname":"cipla"})
+{ "_id" : ObjectId("5cbc6d290428da05a06b89b2"), "time" : "2019-04-21 18:46:25", "sid" : "23", "sname" : "cipla", "price" : 253 }
+{ "_id" : ObjectId("5cbc6d2e0428da05a06b89d0"), "time" : "2019-04-21 18:46:30", "sid" : "23", "sname" : "cipla", "price" : 259 }
+{ "_id" : ObjectId("5cbc6d330428da05a06b89ee"), "time" : "2019-04-21 18:46:35", "sid" : "23", "sname" : "cipla", "price" : 256 }
+{ "_id" : ObjectId("5cbc6d380428da05a06b8a0c"), "time" : "2019-04-21 18:46:40", "sid" : "23", "sname" : "cipla", "price" : 259 }
+{ "_id" : ObjectId("5cbc6d3d0428da05a06b8a2a"), "time" : "2019-04-21 18:46:45", "sid" : "23", "sname" : "cipla", "price" : 259 }
+{ "_id" : ObjectId("5cbc6d420428da05a06b8a48"), "time" : "2019-04-21 18:46:50", "sid" : "23", "sname" : "cipla", "price" : 254 }
+{ "_id" : ObjectId("5cbc6d470428da05a06b8a66"), "time" : "2019-04-21 18:46:55", "sid" : "23", "sname" : "cipla", "price" : 257 }
+{ "_id" : ObjectId("5cbc6d4c0428da05a06b8a84"), "time" : "2019-04-21 18:47:00", "sid" : "23", "sname" : "cipla", "price" : 251 }
+{ "_id" : ObjectId("5cbc6d510428da05a06b8aa2"), "time" : "2019-04-21 18:47:05", "sid" : "23", "sname" : "cipla", "price" : 252 }
+{ "_id" : ObjectId("5cbc6d560428da05a06b8ac0"), "time" : "2019-04-21 18:47:10", "sid" : "23", "sname" : "cipla", "price" : 254 }
+{ "_id" : ObjectId("5cbc6d5b0428da05a06b8ade"), "time" : "2019-04-21 18:47:15", "sid" : "23", "sname" : "cipla", "price" : 256 }
+{ "_id" : ObjectId("5cbc6d600428da05a06b8afc"), "time" : "2019-04-21 18:47:20", "sid" : "23", "sname" : "cipla", "price" : 259 }
+{ "_id" : ObjectId("5cbc6d650428da05a06b8b1a"), "time" : "2019-04-21 18:47:25", "sid" : "23", "sname" : "cipla", "price" : 260 }
+{ "_id" : ObjectId("5cbc6d6a0428da05a06b8b38"), "time" : "2019-04-21 18:47:30", "sid" : "23", "sname" : "cipla", "price" : 260 }
+{ "_id" : ObjectId("5cbc6d6f0428da05a06b8b56"), "time" : "2019-04-21 18:47:35", "sid" : "23", "sname" : "cipla", "price" : 256 }
+{ "_id" : ObjectId("5cbc6d740428da05a06b8b74"), "time" : "2019-04-21 18:47:40", "sid" : "23", "sname" : "cipla", "price" : 257 }
+{ "_id" : ObjectId("5cbc6d790428da05a06b8b92"), "time" : "2019-04-21 18:47:45", "sid" : "23", "sname" : "cipla", "price" : 256 }
+{ "_id" : ObjectId("5cbc6d7e0428da05a06b8bb0"), "time" : "2019-04-21 18:47:50", "sid" : "23", "sname" : "cipla", "price" : 254 }
+{ "_id" : ObjectId("5cbc6d840428da05a06b8bce"), "time" : "2019-04-21 18:47:56", "sid" : "23", "sname" : "cipla", "price" : 256 }
+{ "_id" : ObjectId("5cbc6d890428da05a06b8bec"), "time" : "2019-04-21 18:48:01", "sid" : "23", "sname" : "cipla", "price" : 259 }
+Type "it" for more
+> db.tick_data.find({"sname":"cipla"}).count()db.tick_data.find({"sname":"cipla"}).count()
+24852
+> db.tick_data.find({"sname":"cipla"}).count()db.tick_data.find({"sname":"cipla"}).count()db.tick_data.find({"sname":"cipla"}).count()db.tick_data.find({"sname":"cipla"}).count()db.tick_data.find({"sname":"cipla"}).count()db.tick_data.find({"sname":"cipla"}).count()db.tick_data.find({"sname":"cipla"}).count()db.tick_data.find({"sname":"cipla"}).count()db.tick_data.find({"sname":"cipla"}).count()db.tick_data.find({"sname":"cipla"}).count()db.tick_data.find({"sname":"cipla"}).count()db.tick_data.find({"sname":"cipla"}).count()db.tick_data.find({"sname":"cipla"}).count()db.tick_data.find({"sname":"cipla"}).count()db.tick_data.find({"sname":"cipla"}).count()db.tick_data.find({"sname":"cipla"}).count()db.tick_data.find({"sname":"cipla"}).count()db.tick_data.find({"sname":"cipla"}).count()db.tick_data.find({"sname":"cipla"}).count()db.tick_data.find({"sname":"cipla"}).count(db.tick_data.find({"sname":"cipla"}).countdb.tick_data.find({"sname":"cipla"}).coundb.tick_data.find({"sname":"cipla"}).coudb.tick_data.find({"sname":"cipla"}).codb.tick_data.find({"sname":"cipla"}).cdb.tick_data.find({"sname":"cipla"}).db.tick_data.find({"sname":"cipla"}).explain()db.tick_data.find({"sname":"cipla"}).explain()db.tick_data.find({"sname":"cipla"}).explain(e)db.tick_data.find({"sname":"cipla"}).explain(ex)db.tick_data.find({"sname":"cipla"}).explain(exe)db.tick_data.find({"sname":"cipla"}).explain(exec)db.tick_data.find({"sname":"cipla"}).explain(exe)db.tick_data.find({"sname":"cipla"}).explain(ex)db.tick_data.find({"sname":"cipla"}).explain(e)db.tick_data.find({"sname":"cipla"}).explain()db.tick_data.find({"sname":"cipla"}).explain(")db.tick_data.find({"sname":"cipla"}).explain("")db.tick_data.find({"sname":"cipla"}).explain("")db.tick_data.find({"sname":"cipla"}).explain("e")db.tick_data.find({"sname":"cipla"}).explain("ex")db.tick_data.find({"sname":"cipla"}).explain("exe")db.tick_data.find({"sname":"cipla"}).explain("exec")db.tick_data.find({"sname":"cipla"}).explain("execu")db.tick_data.find({"sname":"cipla"}).explain("execut")db.tick_data.find({"sname":"cipla"}).explain("executi")db.tick_data.find({"sname":"cipla"}).explain("executio")db.tick_data.find({"sname":"cipla"}).explain("execution")db.tick_data.find({"sname":"cipla"}).explain("executionS")db.tick_data.find({"sname":"cipla"}).explain("executionSt")db.tick_data.find({"sname":"cipla"}).explain("executionSta")db.tick_data.find({"sname":"cipla"}).explain("executionStat")db.tick_data.find({"sname":"cipla"}).explain("executionState")db.tick_data.find({"sname":"cipla"}).explain("executionStates")db.tick_data.find({"sname":"cipla"}).explain("executionState")db.tick_data.find({"sname":"cipla"}).explain("executionStat")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")
+{
+"queryPlanner" : {
+"plannerVersion" : 1,
+"namespace" : "stock.tick_data",
+"indexFilterSet" : false,
+"parsedQuery" : {
+"sname" : {
+"$eq" : "cipla"
+}
+},
+"winningPlan" : {
+"stage" : "COLLSCAN",
+"filter" : {
+"sname" : {
+"$eq" : "cipla"
+}
+},
+"direction" : "forward"
+},
+"rejectedPlans" : [ ]
+},
+"executionStats" : {
+"executionSuccess" : true,
+"nReturned" : 24852,
+"executionTimeMillis" : 632,
+"totalKeysExamined" : 0,
+"totalDocsExamined" : 745564,
+"executionStages" : {
+"stage" : "COLLSCAN",
+"filter" : {
+"sname" : {
+"$eq" : "cipla"
+}
+},
+"nReturned" : 24852,
+"executionTimeMillisEstimate" : 519,
+"works" : 745566,
+"advanced" : 24852,
+"needTime" : 720713,
+"needYield" : 0,
+"saveState" : 5842,
+"restoreState" : 5842,
+"isEOF" : 1,
+"invalidates" : 0,
+"direction" : "forward",
+"docsExamined" : 745564
+}
+},
+"serverInfo" : {
+"host" : "vm-1",
+"port" : 27010,
+"version" : "4.0.5",
+"gitVersion" : "3739429dd92b92d1b0ab120911a23d50bf03c412"
+},
+"ok" : 1
+}
+> 

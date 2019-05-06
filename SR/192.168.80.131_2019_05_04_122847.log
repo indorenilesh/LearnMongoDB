@@ -1,0 +1,536 @@
+=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2019.05.04 12:28:47 =~=~=~=~=~=~=~=~=~=~=~=
+login as: root
+root@192.168.80.131's password: 
+Last login: Sat May  4 12:27:52 2019 from 192.168.80.1
+m[root@vm-1 ~]# mongo --port 2701121
+MongoDB shell version v4.0.5
+connecting to: mongodb://127.0.0.1:27021/?gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("0feffd36-75b7-4e4c-b244-291fd6072fea") }
+MongoDB server version: 4.0.5
+Server has startup warnings: 
+2019-05-04T11:20:35.534+0530 I CONTROL  [initandlisten] 
+2019-05-04T11:20:35.534+0530 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2019-05-04T11:20:35.534+0530 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2019-05-04T11:20:35.534+0530 I CONTROL  [initandlisten] ** WARNING: You are running this process as the root user, which is not recommended.
+2019-05-04T11:20:35.534+0530 I CONTROL  [initandlisten] 
+2019-05-04T11:20:35.535+0530 I CONTROL  [initandlisten] 
+2019-05-04T11:20:35.535+0530 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/enabled is 'always'.
+2019-05-04T11:20:35.535+0530 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2019-05-04T11:20:35.535+0530 I CONTROL  [initandlisten] 
+2019-05-04T11:20:35.535+0530 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/defrag is 'always'.
+2019-05-04T11:20:35.535+0530 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2019-05-04T11:20:35.535+0530 I CONTROL  [initandlisten] 
+---
+Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+and anyone you share the URL with. MongoDB may use this information to make product
+improvements and to suggest MongoDB products and deployment options to you.
+
+To enable free monitoring, run the following command: db.enableFreeMonitoring()
+To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+
+SR2:PRIMARY> show dbsshow dbs
+TEST    0.000GB
+admin   0.000GB
+config  0.000GB
+local   0.047GB
+stock   0.032GB
+SR2:PRIMARY> use configuse config
+switched to db config
+SR2:PRIMARY> show collectionsshow collections
+cache.chunks.config.system.sessions
+cache.chunks.stock.tick_data
+cache.collections
+cache.databases
+transactions
+SR2:PRIMARY> ^C
+bye
+w
+[root@vm-1 ~]# w
+ 12:40:48 up  1:33,  4 users,  load average: 18.90, 11.85, 6.10
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+root     pts/0    192.168.80.1     11:09    2:08   5.63s  5.20s mongo --port 27041
+root     pts/1    192.168.80.1     12:21    3:52   7.77s  7.54s mongorestore -d stock -c tick_data --port 27041 tick_data/
+root     pts/2    192.168.80.1     12:27   16.00s  0.89s  0.73s mongo --port 27010
+root     pts/3    192.168.80.1     12:28    8.00s  0.23s  0.11s w
+[root@vm-1 ~]# onmongo --port 27010
+MongoDB shell version v4.0.5
+connecting to: mongodb://127.0.0.1:27010/?gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("5db4b41e-e249-4e66-a1ab-5e301b2ad5ff") }
+MongoDB server version: 4.0.5
+Server has startup warnings: 
+2019-05-04T11:25:40.282+0530 I CONTROL  [initandlisten] 
+2019-05-04T11:25:40.282+0530 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2019-05-04T11:25:40.282+0530 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2019-05-04T11:25:40.282+0530 I CONTROL  [initandlisten] ** WARNING: You are running this process as the root user, which is not recommended.
+2019-05-04T11:25:40.282+0530 I CONTROL  [initandlisten] 
+2019-05-04T11:25:40.283+0530 I CONTROL  [initandlisten] 
+2019-05-04T11:25:40.283+0530 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/enabled is 'always'.
+2019-05-04T11:25:40.283+0530 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2019-05-04T11:25:40.283+0530 I CONTROL  [initandlisten] 
+2019-05-04T11:25:40.283+0530 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/defrag is 'always'.
+2019-05-04T11:25:40.283+0530 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2019-05-04T11:25:40.283+0530 I CONTROL  [initandlisten] 
+---
+Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+and anyone you share the URL with. MongoDB may use this information to make product
+improvements and to suggest MongoDB products and deployment options to you.
+
+To enable free monitoring, run the following command: db.enableFreeMonitoring()
+To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+
+> use stockuse stock
+switched to db stock
+> db.tickdb.tick_data.sedb.tick_data.setdb.tick_data.set
+db.tick_data.setSlaveOk(       db.tick_data.setWriteConcern(
+> db.tick_data.setdb.tick_data.sedb.tick_data.sdb.tick_data.ensudb.tick_data.ensureIndex()db.tick_data.ensureIndex()db.tick_data.ensureIndex(")db.tick_data.ensureIndex("")db.tick_data.ensureIndex("")db.tick_data.ensureIndex("s")db.tick_data.ensureIndex("sn")db.tick_data.ensureIndex("sna")db.tick_data.ensureIndex("snam")db.tick_data.ensureIndex("sname")db.tick_data.ensureIndex("sname")db.tick_data.ensureIndex("sname" )db.tick_data.ensureIndex("sname" :)db.tick_data.ensureIndex("sname" : )db.tick_data.ensureIndex("sname" : 1)db.tick_data.ensureIndex("sname" : 1 )db.tick_data.ensureIndex("sname" : 1)db.tick_data.ensureIndex("sname" : 1)db.tick_data.ensureIndex("sname" : 1)
+2019-05-04T12:45:55.867+0530 E QUERY    [js] SyntaxError: missing ) after argument list @(shell):1:33
+> db.tick_data.ensureIndex("sname" : 1)db.tick_data.ensureIndex("sname" : 1)db.tick_data.ensureIndex("sname" : 1})db.tick_data.ensureIndex("sname" : 1})db.tick_data.ensureIndex("sname" : 1})db.tick_data.ensureIndex("sname" : 1})db.tick_data.ensureIndex("sname" : 1})db.tick_data.ensureIndex("sname" : 1})db.tick_data.ensureIndex("sname" : 1})db.tick_data.ensureIndex("sname" : 1})db.tick_data.ensureIndex("sname" : 1})db.tick_data.ensureIndex("sname" : 1})db.tick_data.ensureIndex("sname" : 1})db.tick_data.ensureIndex("sname" : 1})db.tick_data.ensureIndex("sname" : 1})db.tick_data.ensureIndex({"sname" : 1})db.tick_data.ensureIndex({"sname" : 1})
+{
+"createdCollectionAutomatically" : false,
+"numIndexesBefore" : 1,
+"numIndexesAfter" : 2,
+"ok" : 1
+}
+> db.getdb.gedb.gdb.tickdb.tick_data.getIndedb.tick_data.getIndexedb.tick_data.getIndexes()db.tick_data.getIndexes()
+[
+{
+"v" : 2,
+"key" : {
+"_id" : 1
+},
+"name" : "_id_",
+"ns" : "stock.tick_data"
+},
+{
+"v" : 2,
+"key" : {
+"sname" : 1
+},
+"name" : "sname_1",
+"ns" : "stock.tick_data"
+}
+]
+> db.tickdb.tick_data.find()db.tick_data.find()db.tick_data.find(")db.tick_data.find("")db.tick_data.find("")db.tick_data.find("")db.tick_data.find({"")db.tick_data.find({"")db.tick_data.find({"")db.tick_data.find({""})db.tick_data.find({""})db.tick_data.find({""})db.tick_data.find({"s"})db.tick_data.find({"sn"})db.tick_data.find({"sna"})db.tick_data.find({"snam"})db.tick_data.find({"sname"})db.tick_data.find({"sname"})db.tick_data.find({"sname":})db.tick_data.find({"sname":"})db.tick_data.find({"sname":"c})db.tick_data.find({"sname":"ci})db.tick_data.find({"sname":"cip})db.tick_data.find({"sname":"cipl})db.tick_data.find({"sname":"cipla})db.tick_data.find({"sname":"cipla"})db.tick_data.find({"sname":"cipla"})db.tick_data.find({"sname":"cipla"}).explain()db.tick_data.find({"sname":"cipla"}).explain()db.tick_data.find({"sname":"cipla"}).explain(")db.tick_data.find({"sname":"cipla"}).explain("")db.tick_data.find({"sname":"cipla"}).explain("")db.tick_data.find({"sname":"cipla"}).explain("e")db.tick_data.find({"sname":"cipla"}).explain("ex")db.tick_data.find({"sname":"cipla"}).explain("exe")db.tick_data.find({"sname":"cipla"}).explain("exec")db.tick_data.find({"sname":"cipla"}).explain("execu")db.tick_data.find({"sname":"cipla"}).explain("execut")db.tick_data.find({"sname":"cipla"}).explain("executi")db.tick_data.find({"sname":"cipla"}).explain("executio")db.tick_data.find({"sname":"cipla"}).explain("execution")db.tick_data.find({"sname":"cipla"}).explain("executionS")db.tick_data.find({"sname":"cipla"}).explain("executionSt")db.tick_data.find({"sname":"cipla"}).explain("executionSta")db.tick_data.find({"sname":"cipla"}).explain("executionStat")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")
+{
+"queryPlanner" : {
+"plannerVersion" : 1,
+"namespace" : "stock.tick_data",
+"indexFilterSet" : false,
+"parsedQuery" : {
+"sname" : {
+"$eq" : "cipla"
+}
+},
+"winningPlan" : {
+"stage" : "FETCH",
+"inputStage" : {
+"stage" : "IXSCAN",
+"keyPattern" : {
+"sname" : 1
+},
+"indexName" : "sname_1",
+"isMultiKey" : false,
+"multiKeyPaths" : {
+"sname" : [ ]
+},
+"isUnique" : false,
+"isSparse" : false,
+"isPartial" : false,
+"indexVersion" : 2,
+"direction" : "forward",
+"indexBounds" : {
+"sname" : [
+"[\"cipla\", \"cipla\"]"
+]
+}
+}
+},
+"rejectedPlans" : [ ]
+},
+"executionStats" : {
+"executionSuccess" : true,
+"nReturned" : 24852,
+"executionTimeMillis" : 119,
+"totalKeysExamined" : 24852,
+"totalDocsExamined" : 24852,
+"executionStages" : {
+"stage" : "FETCH",
+"nReturned" : 24852,
+"executionTimeMillisEstimate" : 95,
+"works" : 24853,
+"advanced" : 24852,
+"needTime" : 0,
+"needYield" : 0,
+"saveState" : 197,
+"restoreState" : 197,
+"isEOF" : 1,
+"invalidates" : 0,
+"docsExamined" : 24852,
+"alreadyHasObj" : 0,
+"inputStage" : {
+"stage" : "IXSCAN",
+"nReturned" : 24852,
+"executionTimeMillisEstimate" : 62,
+"works" : 24853,
+"advanced" : 24852,
+"needTime" : 0,
+"needYield" : 0,
+"saveState" : 197,
+"restoreState" : 197,
+"isEOF" : 1,
+"invalidates" : 0,
+"keyPattern" : {
+"sname" : 1
+},
+"indexName" : "sname_1",
+"isMultiKey" : false,
+"multiKeyPaths" : {
+"sname" : [ ]
+},
+"isUnique" : false,
+"isSparse" : false,
+"isPartial" : false,
+"indexVersion" : 2,
+"direction" : "forward",
+"indexBounds" : {
+"sname" : [
+"[\"cipla\", \"cipla\"]"
+]
+},
+"keysExamined" : 24852,
+"seeks" : 1,
+"dupsTested" : 0,
+"dupsDropped" : 0,
+"seenInvalidated" : 0
+}
+}
+},
+"serverInfo" : {
+"host" : "vm-1",
+"port" : 27010,
+"version" : "4.0.5",
+"gitVersion" : "3739429dd92b92d1b0ab120911a23d50bf03c412"
+},
+"ok" : 1
+}
+> db.tick_data.find({"sname":"cipla"}).explain("executionStats")> db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")
+{
+"queryPlanner" : {
+"plannerVersion" : 1,
+"namespace" : "stock.tick_data",
+"indexFilterSet" : false,
+"parsedQuery" : {
+"sname" : {
+"$eq" : "cipla"
+}
+},
+"winningPlan" : {
+"stage" : "FETCH",
+"inputStage" : {
+"stage" : "IXSCAN",
+"keyPattern" : {
+"sname" : 1
+},
+"indexName" : "sname_1",
+"isMultiKey" : false,
+"multiKeyPaths" : {
+"sname" : [ ]
+},
+"isUnique" : false,
+"isSparse" : false,
+"isPartial" : false,
+"indexVersion" : 2,
+"direction" : "forward",
+"indexBounds" : {
+"sname" : [
+"[\"cipla\", \"cipla\"]"
+]
+}
+}
+},
+"rejectedPlans" : [ ]
+},
+"executionStats" : {
+"executionSuccess" : true,
+"nReturned" : 24852,
+"executionTimeMillis" : 56,
+"totalKeysExamined" : 24852,
+"totalDocsExamined" : 24852,
+"executionStages" : {
+"stage" : "FETCH",
+"nReturned" : 24852,
+"executionTimeMillisEstimate" : 44,
+"works" : 24853,
+"advanced" : 24852,
+"needTime" : 0,
+"needYield" : 0,
+"saveState" : 196,
+"restoreState" : 196,
+"isEOF" : 1,
+"invalidates" : 0,
+"docsExamined" : 24852,
+"alreadyHasObj" : 0,
+"inputStage" : {
+"stage" : "IXSCAN",
+"nReturned" : 24852,
+"executionTimeMillisEstimate" : 22,
+"works" : 24853,
+"advanced" : 24852,
+"needTime" : 0,
+"needYield" : 0,
+"saveState" : 196,
+"restoreState" : 196,
+"isEOF" : 1,
+"invalidates" : 0,
+"keyPattern" : {
+"sname" : 1
+},
+"indexName" : "sname_1",
+"isMultiKey" : false,
+"multiKeyPaths" : {
+"sname" : [ ]
+},
+"isUnique" : false,
+"isSparse" : false,
+"isPartial" : false,
+"indexVersion" : 2,
+"direction" : "forward",
+"indexBounds" : {
+"sname" : [
+"[\"cipla\", \"cipla\"]"
+]
+},
+"keysExamined" : 24852,
+"seeks" : 1,
+"dupsTested" : 0,
+"dupsDropped" : 0,
+"seenInvalidated" : 0
+}
+}
+},
+"serverInfo" : {
+"host" : "vm-1",
+"port" : 27010,
+"version" : "4.0.5",
+"gitVersion" : "3739429dd92b92d1b0ab120911a23d50bf03c412"
+},
+"ok" : 1
+}
+> db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipla"}).explain("executionStats")db.tick_data.find({"sname":"cipl"}).explain("executionStats")db.tick_data.find({"sname":"cip"}).explain("executionStats")db.tick_data.find({"sname":"ci"}).explain("executionStats")db.tick_data.find({"sname":"c"}).explain("executionStats")db.tick_data.find({"sname":""}).explain("executionStats")db.tick_data.find({"sname":"b"}).explain("executionStats")db.tick_data.find({"sname":"ba"}).explain("executionStats")db.tick_data.find({"sname":"bat"}).explain("executionStats")db.tick_data.find({"sname":"bata"}).explain("executionStats")db.tick_data.find({"sname":"bata"}).explain("executionStats")
+{
+"queryPlanner" : {
+"plannerVersion" : 1,
+"namespace" : "stock.tick_data",
+"indexFilterSet" : false,
+"parsedQuery" : {
+"sname" : {
+"$eq" : "bata"
+}
+},
+"winningPlan" : {
+"stage" : "FETCH",
+"inputStage" : {
+"stage" : "IXSCAN",
+"keyPattern" : {
+"sname" : 1
+},
+"indexName" : "sname_1",
+"isMultiKey" : false,
+"multiKeyPaths" : {
+"sname" : [ ]
+},
+"isUnique" : false,
+"isSparse" : false,
+"isPartial" : false,
+"indexVersion" : 2,
+"direction" : "forward",
+"indexBounds" : {
+"sname" : [
+"[\"bata\", \"bata\"]"
+]
+}
+}
+},
+"rejectedPlans" : [ ]
+},
+"executionStats" : {
+"executionSuccess" : true,
+"nReturned" : 24852,
+"executionTimeMillis" : 117,
+"totalKeysExamined" : 24852,
+"totalDocsExamined" : 24852,
+"executionStages" : {
+"stage" : "FETCH",
+"nReturned" : 24852,
+"executionTimeMillisEstimate" : 98,
+"works" : 24853,
+"advanced" : 24852,
+"needTime" : 0,
+"needYield" : 0,
+"saveState" : 195,
+"restoreState" : 195,
+"isEOF" : 1,
+"invalidates" : 0,
+"docsExamined" : 24852,
+"alreadyHasObj" : 0,
+"inputStage" : {
+"stage" : "IXSCAN",
+"nReturned" : 24852,
+"executionTimeMillisEstimate" : 10,
+"works" : 24853,
+"advanced" : 24852,
+"needTime" : 0,
+"needYield" : 0,
+"saveState" : 195,
+"restoreState" : 195,
+"isEOF" : 1,
+"invalidates" : 0,
+"keyPattern" : {
+"sname" : 1
+},
+"indexName" : "sname_1",
+"isMultiKey" : false,
+"multiKeyPaths" : {
+"sname" : [ ]
+},
+"isUnique" : false,
+"isSparse" : false,
+"isPartial" : false,
+"indexVersion" : 2,
+"direction" : "forward",
+"indexBounds" : {
+"sname" : [
+"[\"bata\", \"bata\"]"
+]
+},
+"keysExamined" : 24852,
+"seeks" : 1,
+"dupsTested" : 0,
+"dupsDropped" : 0,
+"seenInvalidated" : 0
+}
+}
+},
+"serverInfo" : {
+"host" : "vm-1",
+"port" : 27010,
+"version" : "4.0.5",
+"gitVersion" : "3739429dd92b92d1b0ab120911a23d50bf03c412"
+},
+"ok" : 1
+}
+> db.tick_data.find({"sname":"bata"}).explain("executionStats")db.tick_data.find({"sname":"bata"}).explain("executionStats")
+{
+"queryPlanner" : {
+"plannerVersion" : 1,
+"namespace" : "stock.tick_data",
+"indexFilterSet" : false,
+"parsedQuery" : {
+"sname" : {
+"$eq" : "bata"
+}
+},
+"winningPlan" : {
+"stage" : "FETCH",
+"inputStage" : {
+"stage" : "IXSCAN",
+"keyPattern" : {
+"sname" : 1
+},
+"indexName" : "sname_1",
+"isMultiKey" : false,
+"multiKeyPaths" : {
+"sname" : [ ]
+},
+"isUnique" : false,
+"isSparse" : false,
+"isPartial" : false,
+"indexVersion" : 2,
+"direction" : "forward",
+"indexBounds" : {
+"sname" : [
+"[\"bata\", \"bata\"]"
+]
+}
+}
+},
+"rejectedPlans" : [ ]
+},
+"executionStats" : {
+"executionSuccess" : true,
+"nReturned" : 24852,
+"executionTimeMillis" : 52,
+"totalKeysExamined" : 24852,
+"totalDocsExamined" : 24852,
+"executionStages" : {
+"stage" : "FETCH",
+"nReturned" : 24852,
+"executionTimeMillisEstimate" : 43,
+"works" : 24853,
+"advanced" : 24852,
+"needTime" : 0,
+"needYield" : 0,
+"saveState" : 195,
+"restoreState" : 195,
+"isEOF" : 1,
+"invalidates" : 0,
+"docsExamined" : 24852,
+"alreadyHasObj" : 0,
+"inputStage" : {
+"stage" : "IXSCAN",
+"nReturned" : 24852,
+"executionTimeMillisEstimate" : 43,
+"works" : 24853,
+"advanced" : 24852,
+"needTime" : 0,
+"needYield" : 0,
+"saveState" : 195,
+"restoreState" : 195,
+"isEOF" : 1,
+"invalidates" : 0,
+"keyPattern" : {
+"sname" : 1
+},
+"indexName" : "sname_1",
+"isMultiKey" : false,
+"multiKeyPaths" : {
+"sname" : [ ]
+},
+"isUnique" : false,
+"isSparse" : false,
+"isPartial" : false,
+"indexVersion" : 2,
+"direction" : "forward",
+"indexBounds" : {
+"sname" : [
+"[\"bata\", \"bata\"]"
+]
+},
+"keysExamined" : 24852,
+"seeks" : 1,
+"dupsTested" : 0,
+"dupsDropped" : 0,
+"seenInvalidated" : 0
+}
+}
+},
+"serverInfo" : {
+"host" : "vm-1",
+"port" : 27010,
+"version" : "4.0.5",
+"gitVersion" : "3739429dd92b92d1b0ab120911a23d50bf03c412"
+},
+"ok" : 1
+}
+> login as: root
+root@192.168.80.131's password: 
+Last login: Sat May  4 12:28:50 2019 from 192.168.80.1
+[root@vm-1 ~]# init 0
